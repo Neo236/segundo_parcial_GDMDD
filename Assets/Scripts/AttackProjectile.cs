@@ -3,20 +3,32 @@ using UnityEngine;
 public class AttackProjectile : MonoBehaviour
 {
     public AttackData attackData;
-    public float speed = 10f;
+    public float speed = 100f;
+
+    Rigidbody2D rb;
     public float lifetime = 5f; 
 
     private Vector3 moveDirection;
 
+
+
+     private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     public void Initialize(Vector3 direction)
     {
+
         moveDirection = direction.normalized;
-        Destroy(gameObject, lifetime); 
+        rb.linearVelocity = moveDirection * speed;
+        Destroy(gameObject, lifetime);
     }
 
     void Update()
     {
-        transform.position += moveDirection * speed * Time.deltaTime;
+        
+        Debug.Log("Projectile moving. Position: " + transform.position);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

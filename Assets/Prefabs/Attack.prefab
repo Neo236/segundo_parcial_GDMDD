@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7385233440228019581}
   - component: {fileID: 8490720332859921849}
   - component: {fileID: 5301385089661295710}
+  - component: {fileID: -867681070494647682}
   m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
@@ -100,6 +101,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb51eeb2d64499448aeaa367cb31bf88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackData: {fileID: 0}
+  attackData: {fileID: 11400000, guid: 6dfc2fcd7f344494183c8a8c6c74f24c, type: 2}
   speed: 10
   lifetime: 5
+--- !u!50 &-867681070494647682
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4018852596382156859}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 2
