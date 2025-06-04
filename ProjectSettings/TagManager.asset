@@ -8,6 +8,8 @@ TagManager:
   - InGameOptionsMenu
   - MainMenu
   - OptionsMenu
+  - Environment
+  - Enemy
   layers:
   - Default
   - TransparentFX
