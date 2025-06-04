@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - PauseMenu
-  - InGameOptionsMenu
+  - InGameSettingsMenu
+  - MainMenuSettingsMenu
   - MainMenu
-  - OptionsMenu
   layers:
   - Default
   - TransparentFX

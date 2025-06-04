@@ -1,29 +1,39 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused;
+    //public static event Action<bool> OnGamePauseStateChanged;
+    private bool _gameIsPaused;
     
+    private MovementInput _movementInputScript;
     private GameObject _pauseMenuUI;
-    private GameObject _inGameOptionsUI;
+    private GameObject _inGameSettingsUI;
+    private GameObject _resumeButton;
+    private GameObject _settingsBackButton;
 
     private void Awake()
     {
         _pauseMenuUI = GameObject.FindWithTag("PauseMenu");
-        _inGameOptionsUI = GameObject.FindWithTag("InGameOptionsMenu");
+        _inGameSettingsUI = GameObject.FindWithTag("InGameSettingsMenu");
+        _resumeButton = _pauseMenuUI.transform.Find("ResumeButton").gameObject;
+        _settingsBackButton = _inGameSettingsUI.transform.Find("BackButton").gameObject;
         
         _pauseMenuUI.SetActive(false);
-        _inGameOptionsUI.SetActive(false);
+        _inGameSettingsUI.SetActive(false);
+        
+        MenuInput.OnPauseButtonPressed += HandlePauseInput;
     }
 
-    public void ReadPauseInput(InputAction.CallbackContext context)
+    public void HandlePauseInput()
     {
-        if (context.performed && !GameIsPaused)
+        if (!_gameIsPaused)
         {
             Pause();
         }
-        else if (context.performed && GameIsPaused)
+        else if (_gameIsPaused)
         {
             Resume();
         }
@@ -33,14 +43,16 @@ public class PauseMenu : MonoBehaviour
     {
         _pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        GameIsPaused = true;
+        _gameIsPaused = true;
+        EventSystem.current.SetSelectedGameObject(_resumeButton);
     }
 
     public void Resume()
     {
         _pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        GameIsPaused = false;
+        _gameIsPaused = false;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void GoToMainMenu()
@@ -49,16 +61,18 @@ public class PauseMenu : MonoBehaviour
         //SceneManager.LoadScene("MainMenu");
     }
     
-    public void OpenInGameOptionsMenu()
+    public void OpenInGameSettingsMenu()
     {
-        _inGameOptionsUI.SetActive(true);
+        _inGameSettingsUI.SetActive(true);
         _pauseMenuUI.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(_settingsBackButton);
     }
 
-    public void CloseInGameOptionsMenu()
+    public void CloseInGameSettingsMenu()
     {
-        _inGameOptionsUI.SetActive(false);
+        _inGameSettingsUI.SetActive(false);
         _pauseMenuUI.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(_resumeButton);
     }
 }
 

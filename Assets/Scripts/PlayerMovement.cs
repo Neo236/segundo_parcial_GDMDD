@@ -1,43 +1,135 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float _speed = 5f;
-    private float _jumpForce = 5f;
-    private float _isGrounded;
+    [Header("Movement Settings")]
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 7.5f;
+    [SerializeField] private float coyoteTime = 0.1f;
+    [SerializeField] private float fallGravityMultiplier = 2f;
+    [SerializeField] private float jumpBufferTime = 0.1f;
     
-    float _horizontalMovement;
-    
+    [Header("Sounds")]
+    [SerializeField] private AudioClip jumpSound;
+
+    private float _initialGravityScale;
+    private float _horizontalMovement;
+    private float _timeSinceLastGroundTouch;
+    private float _jumpBufferCounter;
+    private bool _canJump;
     private Rigidbody2D _rb;
+    private GroundCheck _groundCheck;
 
     private void Awake()
     {
+        InitializeComponents();
+    }
+
+    private void InitializeComponents()
+    {
         _rb = GetComponent<Rigidbody2D>();
+        _groundCheck = GetComponent<GroundCheck>();
+
+        if (_rb == null)
+        {
+            Debug.LogError($"No Rigidbody2D found on {gameObject.name}");
+            enabled = false;
+            return;
+        }
+
+        if (_groundCheck == null)
+        {
+            Debug.LogError($"No GroundCheck found on {gameObject.name}");
+            enabled = false;
+            return;
+        }
+
+        _initialGravityScale = _rb.gravityScale;
+        
+        // Subscribe to input events
+        MovementInput.OnHorizontalInput += HandleHorizontalMovement;
+        MovementInput.OnJumpPressed += HandleJumpInput;
+    }
+
+    private void OnDestroy()
+    {
+        MovementInput.OnHorizontalInput -= HandleHorizontalMovement; 
+        MovementInput.OnJumpPressed -= HandleJumpInput;
     }
 
     private void Update()
     {
-        _rb.linearVelocity = new Vector2(_horizontalMovement * _speed, _rb.linearVelocity.y);
-    }
-
-    public void ReadHorizontalInput(InputAction.CallbackContext context)
-    {
-        _horizontalMovement = context.ReadValue<Vector2>().x;
-    }
-
-    public void ReadJumpInput(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        if (_jumpBufferCounter > 0)
         {
-            Jump();
+            _jumpBufferCounter -= Time.deltaTime;
         }
     }
 
-    public void Jump()
+    private void FixedUpdate()
     {
-        _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        Move();
+        HandleJumpLogic();
+        ApplyGravityModifiers();
+    }
+
+    private void Move()
+    {
+        _rb.linearVelocity = new Vector2(_horizontalMovement * speed, _rb.linearVelocity.y);
+    }
+
+    private void HandleHorizontalMovement(float movement)
+    {
+        _horizontalMovement = movement;
+    }
+
+    private void HandleJumpInput()
+    {
+        if (_canJump)
+        {
+            PerformJump();
+        }
+        else
+        {
+            _jumpBufferCounter = jumpBufferTime;
+        }
+    }
+
+    private void HandleJumpLogic()
+    {
+        if (_groundCheck.IsGrounded)
+        {
+            if (_rb.linearVelocity.y <= 0.01f)
+            {
+                _timeSinceLastGroundTouch = 0f;
+                _canJump = true;
+            }
+        }
+        else
+        {
+            _timeSinceLastGroundTouch += Time.fixedDeltaTime;
+            _canJump = _timeSinceLastGroundTouch < coyoteTime;
+        }
+
+        if (_canJump && _jumpBufferCounter > 0)
+        {
+            PerformJump();
+            _jumpBufferCounter = 0;
+        }
+    }
+
+    private void PerformJump()
+    {
+        AudioManager.Instance.PlaySfx(jumpSound);
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0f);
+        _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        _canJump = false;
+        _timeSinceLastGroundTouch = coyoteTime + 1f;
+    }
+
+    private void ApplyGravityModifiers()
+    {
+        _rb.gravityScale = _rb.linearVelocity.y < 0 
+            ? _initialGravityScale * fallGravityMultiplier 
+            : _initialGravityScale;
     }
 }
-
