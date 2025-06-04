@@ -12,11 +12,11 @@ public class PlayerMovement : MonoBehaviour
 
     private AttackSelector _attackSelector;
 
-    private AttackData _selectedAttack;
+   
 
     private InkSelector _inkSelector;
 
-    private ElementType _currentInk;
+    
 
     private float m_coldDownTimer = 0.2f;
 
@@ -33,23 +33,7 @@ public class PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _playerHealth = GetComponent<PlayerHealthj>();
         _attackSelector = GetComponent<AttackSelector>();
-        if (_attackSelector != null)
-        {
-            _selectedAttack = _attackSelector.selectedAttack;
-        }
-        else
-        {
-            Debug.LogWarning("AttackSelector component not found on PlayerMovement.");
-        }
         _inkSelector = GetComponent<InkSelector>();
-        if (_inkSelector != null)
-        {
-            _currentInk = _inkSelector.currentInk;
-        }
-        else
-        {
-            Debug.LogWarning("InkSelector component not found on PlayerMovement.");
-        }
     }
 
     private void Update()
