@@ -14,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     private AttackData _selectedAttack;
 
+    private InkSelector _inkSelector;
+
+    private ElementType _currentInk;
+
     private float m_coldDownTimer = 0.2f;
 
     [SerializeField] private Transform attackSpwawner;
@@ -37,6 +41,15 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogWarning("AttackSelector component not found on PlayerMovement.");
         }
+        _inkSelector = GetComponent<InkSelector>();
+        if (_inkSelector != null)
+        {
+            _currentInk = _inkSelector.currentInk;
+        }
+        else
+        {
+            Debug.LogWarning("InkSelector component not found on PlayerMovement.");
+        }
     }
 
     private void Update()
@@ -46,17 +59,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
-
-
-    /*public void ReadFireInput(InputAction.CallbackContext context)
-    {
-        Debug.Log("ReadFireInput triggered: " + context.phase);
-        if (context.performed && m_coldDownTimer > 0.2f)
-        {
-            Attack();
-        }
-    }*/
 
 
     public void ReadHorizontalInput(InputAction.CallbackContext context)
@@ -82,14 +84,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed && m_coldDownTimer > 0.2f)
         {
-            if (_playerHealth.currentInk >= _selectedAttack.inkCost)
+            if (_playerHealth.currentInk >= _attackSelector.selectedAttack.inkCost)
             {
                 m_coldDownTimer = 0;
-                _playerHealth.currentInk -= _selectedAttack.inkCost;
-               
+                _playerHealth.currentInk -= _attackSelector.selectedAttack.inkCost;
+              
+                _attackSelector.selectedAttack.elementType = _inkSelector.currentInk;
+                Debug.Log("Selected Attack: " + _attackSelector.selectedAttack.name + " with ink cost: " + _attackSelector.selectedAttack.inkCost + " and element type: " + _attackSelector.selectedAttack.elementType);
                 GameObject projectileInstance = Instantiate(attackProjectile, attackSpwawner.position, attackSpwawner.rotation);
                 Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
-                projectileInstance.GetComponent<AttackProjectile>().Initialize(direction, _selectedAttack);
+                projectileInstance.GetComponent<AttackProjectile>().Initialize(direction, _attackSelector.selectedAttack);
             }
             else
             {
