@@ -7,6 +7,8 @@ public class AttackData : ScriptableObject
     public float baseDamage;
     public ElementType elementType;
     public GameObject visualEffect;
+
+    public int inkCost;
 }
 
 

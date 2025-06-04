@@ -2105,6 +2105,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1560407221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3026359100180622805, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+  m_PrefabInstance: {fileID: 8303982346493335190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1718773846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,12 +2162,28 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7249421738409073802, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
   m_PrefabInstance: {fileID: 8303982346493335190}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1560407221}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5535ebf4fa705b48a9eb905f7847edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1957610020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560407221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9396b9c4ea6ae54396bcc1b88093fcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableAttacks:
+  - {fileID: 11400000, guid: 6dfc2fcd7f344494183c8a8c6c74f24c, type: 2}
+  - {fileID: 11400000, guid: 87c2bb43bc94cf541b4be627c7abd6a2, type: 2}
+  selectedAttack: {fileID: 11400000, guid: 6dfc2fcd7f344494183c8a8c6c74f24c, type: 2}
 --- !u!1 &1990862605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,11 +2648,31 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: f7181fa0-85a4-4ff5-8284-3fab2880adac
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: Player/New action
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
@@ -2643,7 +2684,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 203443418}
     - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1957610020}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
@@ -2651,11 +2700,23 @@ PrefabInstance:
       value: Attack
       objectReference: {fileID: 0}
     - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectNextAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PlayerMovement, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AttackSelector, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3399703710654689255, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7249421738409073802, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
@@ -2672,7 +2733,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2879263877966294131, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 165535200}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3026359100180622805, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1957610020}
   m_SourcePrefab: {fileID: 100100000, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
 --- !u!1001 &9084639612064216217
 PrefabInstance:

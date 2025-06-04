@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackData: {fileID: 11400000, guid: 6dfc2fcd7f344494183c8a8c6c74f24c, type: 2}
   speed: 10
-  lifetime: 5
+  lifetime: 3
 --- !u!50 &-867681070494647682
 Rigidbody2D:
   serializedVersion: 5
