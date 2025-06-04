@@ -42,18 +42,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
+                    "name": "NextAttack",
                     "type": "Button",
-                    "id": "641cd816-40e6-41b4-8c3d-04687c349290",
+                    "id": "f7181fa0-85a4-4ff5-8284-3fab2880adac",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pause",
+                    "name": "NextInkTypè",
                     "type": "Button",
-                    "id": "ae76da89-f617-4d51-ae7f-b267cad1ccc3",
+                    "id": "01b398b9-7e2a-4257-8fe7-f3440cb14a2e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
