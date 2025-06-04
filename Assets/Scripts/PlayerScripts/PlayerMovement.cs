@@ -74,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
                 _playerHealth.currentInk -= _attackSelector.selectedAttack.inkCost;
               
                 _attackSelector.selectedAttack.elementType = _inkSelector.currentInk;
-                Debug.Log("Selected Attack: " + _attackSelector.selectedAttack.name + " with ink cost: " + _attackSelector.selectedAttack.inkCost + " and element type: " + _attackSelector.selectedAttack.elementType);
                 GameObject projectileInstance = Instantiate(attackProjectile, attackSpwawner.position, attackSpwawner.rotation);
                 Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
                 projectileInstance.GetComponent<AttackProjectile>().Initialize(direction, _attackSelector.selectedAttack);

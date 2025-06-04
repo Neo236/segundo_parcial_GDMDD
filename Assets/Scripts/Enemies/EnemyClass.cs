@@ -4,7 +4,9 @@ public class EnemyClass : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] ElementType[] ElementDefense;
-    private int health = 100; // Salud del enemigo, puedes ajustarla según sea necesario
+
+    [SerializeField] ElementType _weakness; // Datos del ataque que el enemigo puede recibir
+    [SerializeField] private int health = 100; // Salud del enemigo, puedes ajustarla según sea necesario
 
     void Start()
     {
@@ -31,42 +33,51 @@ public class EnemyClass : MonoBehaviour
             damage = Mathf.RoundToInt(attackData.baseDamage * 1.5f); // Aumenta el daño en un 50%
         }
         else
+            if (IsStrongAgaint(attackData.elementType))
+        {
+            // Lógica para manejar el daño reducido
+            damage = Mathf.RoundToInt(attackData.baseDamage * 0.5f); // Reduce el daño a la mitad
+        }
+        else
         {
             // Lógica para manejar el daño normal
             damage = Mathf.RoundToInt(attackData.baseDamage); // Daño normal
         }
+        Debug.Log($"Enemy takes {damage} damage from {attackData.elementType} attack.");
         health -= damage; // Reducir la salud del enemigo
+        if (health <= 0)
+        {
+            Die(); // Lógica para manejar la muerte del enemigo
+        }
     }
 
 
     private bool IsWeakAgainst(ElementType attackElement)
     {
         // Verifica si el tipo de elemento del ataque es débil contra la defensa del enemigo
-        foreach (var defenseElement in ElementDefense)
+        return attackElement == _weakness;
+    }
+
+
+    private bool IsStrongAgaint(ElementType attackElement)
+    {
+        // Implementa la lógica para determinar si un tipo de elemento es débil contra otro
+        // Por ejemplo, podrías usar una tabla de debilidades
+        for (int i = 0; i < ElementDefense.Length; i++)
         {
-            if (IsWeakAgainst(attackElement, defenseElement))
+            if (ElementDefense[i] == attackElement)
             {
-                return true;
+                return true; // El ataque es fuerte contra el enemigo
             }
         }
         return false;
     }
     
-
-    private bool IsWeakAgainst(ElementType attackElement, ElementType defenseElement)
+    private void Die()
     {
-        // Implementa la lógica para determinar si un tipo de elemento es débil contra otro
-        // Por ejemplo, podrías usar una tabla de debilidades
-        switch (attackElement)
-        {
-            case ElementType.Fire:
-                return defenseElement == ElementType.Water;
-            case ElementType.Water:
-                return defenseElement == ElementType.Electric;
-            case ElementType.Electric:
-                return defenseElement == ElementType.Fire;
-            default:
-                return false; // Por defecto, no hay debilidad
-        }
+        // Lógica para manejar la muerte del enemigo
+        // Por ejemplo, podrías reproducir una animación de muerte, soltar objetos, etc.
+        Debug.Log("Enemy has died.");
+        Destroy(gameObject); // Destruye el objeto del enemigo
     }
 }

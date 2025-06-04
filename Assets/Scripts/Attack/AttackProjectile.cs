@@ -37,6 +37,23 @@ public class AttackProjectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // TO DO: Implementar lógica de colisión con enemigos o el entorno
+        if (collision.CompareTag("Enemy"))
+        {
+            // Aquí podrías aplicar daño al enemigo
+            Debug.Log("Hit an enemy!");
+            EnemyClass enemy = collision.GetComponent<EnemyClass>();
+            if (enemy != null && attackData != null)
+            {
+                enemy.TakeDamage(attackData); // Aplica el daño al enemigo
+            }
+            Destroy(gameObject); // Destruye el proyectil al colisionar
+        }
+        else if (collision.CompareTag("Environment"))
+        {
+            // Aquí podrías implementar lógica para colisiones con el entorno
+            Debug.Log("Hit the environment!");
+            Destroy(gameObject); // Destruye el proyectil al colisionar
+        }
 
     }
     
