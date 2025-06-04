@@ -1,23 +1,38 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerHealthj : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static event Action OnTakeDamage;
+    
+    [SerializeField]private AudioClip hurtSound;
+    [SerializeField]private AudioClip deathSound;
 
-    public int maxHealth = 100;
-    public int currentHealth;
+    private float _currentHealth = 100f;
+    private float _maxHealth = 100f;
 
-    public int currentInk;
-    public int maxInk = 100;
-    void Start()
+    public float CurrentHealth => _currentHealth;
+    public float MaxHealth => _maxHealth;
+
+    public void TakeDamage(float damage)
     {
-        currentHealth = maxHealth;
-        currentInk = maxInk;
+        AudioManager.Instance.PlaySfx(hurtSound);
+        _currentHealth = CurrentHealth - damage;
+        if (CurrentHealth <= 0)
+        {
+            Die();
+        }
+        OnTakeDamage?.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Heal(float health)
     {
-        
+        _currentHealth = Math.Clamp(CurrentHealth + health, 0f, _maxHealth);
     }
+
+    public void Die()
+    {
+        AudioManager.Instance.PlaySfx(deathSound);
+    } 
 }
