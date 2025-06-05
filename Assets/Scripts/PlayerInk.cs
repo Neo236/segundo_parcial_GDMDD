@@ -4,8 +4,26 @@ using UnityEngine;
 public class PlayerInk : MonoBehaviour
 {
     public static event Action OnInkChange;
-    private float _currentInk = 100f;
-    private float _maxInk = 100f;
-    public float CurrentInk { get; private set; }
-    public float MaxInk { get; private set; }
+    private int _currentInk = 100;
+    private int _maxInk = 100;
+    public int CurrentInk
+    {
+        get => _currentInk;
+        set
+        {
+            int newValue = Mathf.Clamp(value, 0, MaxInk);
+            if (_currentInk != newValue)
+            {
+                _currentInk = newValue;
+                OnInkChange?.Invoke();
+            }
+        }
+    }
+
+    public int MaxInk => _maxInk;
+    
+    public void RefillInk()
+    {
+        CurrentInk = MaxInk;
+    }
 }

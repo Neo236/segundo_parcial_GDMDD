@@ -20,7 +20,7 @@
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -173,6 +173,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a21fd3e2-e978-49b8-acbc-cb7275c09eef",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b3c1c7f0-bd20-4ee7-a0f1-899b24bca6d7",
                     "path": "<Keyboard>/k",
                     "interactions": "",
@@ -267,6 +278,28 @@
                     "processors": "",
                     "groups": ";Gamepad;Touch;Joystick",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2b39a209-0682-47d9-8db1-e8ce0b629459",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1fae3c37-b060-4928-8e0e-463629e77383",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextInkTypè",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
