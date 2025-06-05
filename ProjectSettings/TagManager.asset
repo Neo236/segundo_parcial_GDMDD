@@ -5,11 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - PauseMenu
-  - InGameOptionsMenu
+  - InGameSettingsMenu
+  - MainMenuSettingsMenu
   - MainMenu
-  - OptionsMenu
-  - Environment
-  - Enemy
   layers:
   - Default
   - TransparentFX
