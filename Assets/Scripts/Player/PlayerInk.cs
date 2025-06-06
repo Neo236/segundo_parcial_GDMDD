@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerInk : MonoBehaviour
 {
     public static event Action OnInkChange;
-    private int _currentInk = 100;
+    private int _currentInk = 1000;
     private int _maxInk = 100;
     
     public int CurrentInk
