@@ -10,16 +10,25 @@ public class AttackInput : MonoBehaviour
 
     public void ReadAttackInput(InputAction.CallbackContext context)
     {
-        OnAttackButtonPressed?.Invoke();
+        if (context.performed)
+        {
+            OnAttackButtonPressed?.Invoke();
+        }
     }
 
     public void ReadSwitchAttackInput(InputAction.CallbackContext context)
     {
-        OnSwitchAttackButtonPressed?.Invoke();
+        if (context.performed)
+        {
+            OnSwitchAttackButtonPressed?.Invoke();
+        }
     }
 
     public void ReadSwitchInkInput(InputAction.CallbackContext context)
     {
-        OnSwitchInkButtonPressed?.Invoke();
+        if (context.performed)
+        {
+            OnSwitchInkButtonPressed?.Invoke();
+        }
     }
 }

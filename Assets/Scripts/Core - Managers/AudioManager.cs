@@ -6,12 +6,11 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    [SerializeField] private AudioMixer _mainMixer;
     public static AudioManager Instance { get; private set; }
     
-    private AudioSource _musicSource;
-    private AudioSource _sfxSource;
-    
-    private AudioMixer _mainMixer;
+    [SerializeField] private AudioSource _musicSource;
+    [SerializeField] private AudioSource _sfxSource;
     
     private const string MASTER_VOLUME_KEY = "MasterVolume";
     private const string MUSIC_VOLUME_KEY = "MusicVolume";
@@ -21,14 +20,20 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            _musicSource = transform.Find("MusicSource").GetComponent<AudioSource>();
-            _sfxSource = transform.Find("SFXSource").GetComponent<AudioSource>();
             DontDestroyOnLoad(gameObject);
+            
+            // Initialize mixer values from saved preferences
+            float masterVolume = PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, 1f);
+            float musicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 1f);
+            float sfxVolume = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 1f);
+            
+            SetMasterVolume(masterVolume);
+            SetMusicVolume(musicVolume);
+            SetSfxVolume(sfxVolume);
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
     }
     

@@ -1,57 +1,88 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
-    //public static event Action<bool> OnGamePauseStateChanged;
-    private bool _gameIsPaused;
+    [SerializeField] private GameObject pauseMenuPanel;
+    [SerializeField] private GameObject settingsMenuPanel;
+    [SerializeField] private GameObject resumeButton;
+    [SerializeField] private GameObject backButton; // Reference to the first button to be selected
     
+    private bool _gameIsPaused;
     private MovementInput _movementInputScript;
-    private GameObject _pauseMenuUI;
-    private GameObject _inGameSettingsUI;
-    private GameObject _resumeButton;
-    private GameObject _settingsBackButton;
+    private AttackInput _attackInputScript;
+    private GameObject _player;
 
     private void Awake()
     {
-        _pauseMenuUI = GameObject.FindWithTag("PauseMenu");
-        _inGameSettingsUI = GameObject.FindWithTag("InGameSettingsMenu");
-        _resumeButton = _pauseMenuUI.transform.Find("ResumeButton").gameObject;
-        _settingsBackButton = _inGameSettingsUI.transform.Find("BackButton").gameObject;
-        
-        _pauseMenuUI.SetActive(false);
-        _inGameSettingsUI.SetActive(false);
-        
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _movementInputScript = _player.GetComponent<MovementInput>();
+        _attackInputScript = _player.GetComponent<AttackInput>();
+
+        // Ensure both menus start inactive
+        pauseMenuPanel.SetActive(false);
+        settingsMenuPanel.SetActive(false);
+    }
+
+    private void Start()
+    {
         MenuInput.OnPauseButtonPressed += HandlePauseInput;
+    }
+
+    private void OnDestroy()
+    {
+        MenuInput.OnPauseButtonPressed -= HandlePauseInput;
     }
 
     public void HandlePauseInput()
     {
+        // Don't handle pause input if settings menu is active
+        if (settingsMenuPanel.activeSelf)
+            return;
+
         if (!_gameIsPaused)
         {
             Pause();
         }
-        else if (_gameIsPaused)
+        else
         {
             Resume();
         }
     }
 
+    private void DisableGameplayInputs()
+    {
+        if (_movementInputScript != null)
+            _movementInputScript.enabled = false;
+        if (_attackInputScript != null)
+            _attackInputScript.enabled = false;
+        // Add any other input scripts you want to disable here
+    }
+
+    private void EnableGameplayInputs()
+    {
+        if (_movementInputScript != null)
+            _movementInputScript.enabled = true;
+        if (_attackInputScript != null)
+            _attackInputScript.enabled = true;
+        // Add any other input scripts you want to enable here
+    }
+
     public void Pause()
     {
-        _pauseMenuUI.SetActive(true);
+        pauseMenuPanel.SetActive(true);
         Time.timeScale = 0f;
         _gameIsPaused = true;
-        EventSystem.current.SetSelectedGameObject(_resumeButton);
+        DisableGameplayInputs();
+        EventSystem.current.SetSelectedGameObject(resumeButton);
     }
 
     public void Resume()
     {
-        _pauseMenuUI.SetActive(false);
+        pauseMenuPanel.SetActive(false);
         Time.timeScale = 1f;
         _gameIsPaused = false;
+        EnableGameplayInputs();
         EventSystem.current.SetSelectedGameObject(null);
     }
 
@@ -63,16 +94,15 @@ public class PauseMenu : MonoBehaviour
     
     public void OpenInGameSettingsMenu()
     {
-        _inGameSettingsUI.SetActive(true);
-        _pauseMenuUI.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(_settingsBackButton);
+        settingsMenuPanel.SetActive(true);
+        pauseMenuPanel.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(backButton);
     }
 
-    public void CloseInGameSettingsMenu()
+    public void ReturnFromSettings()
     {
-        _inGameSettingsUI.SetActive(false);
-        _pauseMenuUI.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(_resumeButton);
+        pauseMenuPanel.SetActive(true);
+        settingsMenuPanel.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(resumeButton);
     }
 }
-
