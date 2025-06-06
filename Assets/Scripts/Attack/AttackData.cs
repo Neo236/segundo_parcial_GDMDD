@@ -7,8 +7,7 @@ public class AttackData : ScriptableObject
     public float baseDamage;
     public ElementType elementType;
     public GameObject visualEffect;
-
+    public Sprite attackIcon; // Add this field for UI representation
     public int inkCost;
+    public AudioClip soundEffect;
 }
-
-

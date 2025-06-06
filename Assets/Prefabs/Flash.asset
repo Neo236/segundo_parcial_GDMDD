@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Flash
   baseDamage: 20
-  elementType: 0
+  elementType: 1
   visualEffect: {fileID: 0}
+  attackIcon: {fileID: 8957324059118975939, guid: bdaac8d2bbd5d1948adb3fb90a2c90fb, type: 3}
   inkCost: 20
+  soundEffect: {fileID: 8300000, guid: 89607b61984ffb941a2b91c756dfd6b7, type: 3}

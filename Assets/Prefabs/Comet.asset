@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackName: Comet
   baseDamage: 10
-  elementType: 0
+  elementType: 1
   visualEffect: {fileID: 0}
+  attackIcon: {fileID: 8334651344603559088, guid: 7ba48333734b4ef468817fb25a42c288, type: 3}
   inkCost: 10
+  soundEffect: {fileID: 8300000, guid: 028918f02cbbb614e9184ecb13a48a94, type: 3}

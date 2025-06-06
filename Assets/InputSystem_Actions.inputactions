@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "NextInkTypè",
+                    "name": "SwitchInkType",
                     "type": "Button",
                     "id": "01b398b9-7e2a-4257-8fe7-f3440cb14a2e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "55bce27e-c989-43af-8725-8ecec19264c7",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -173,17 +182,6 @@
                 },
                 {
                     "name": "",
-                    "id": "a21fd3e2-e978-49b8-acbc-cb7275c09eef",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b3c1c7f0-bd20-4ee7-a0f1-899b24bca6d7",
                     "path": "<Keyboard>/k",
                     "interactions": "",
@@ -283,23 +281,23 @@
                 },
                 {
                     "name": "",
-                    "id": "2b39a209-0682-47d9-8db1-e8ce0b629459",
+                    "id": "925b4cd1-e932-4a91-9647-d36a988f1e11",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "NextAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "1fae3c37-b060-4928-8e0e-463629e77383",
-                    "path": "<Keyboard>/e",
+                    "id": "06f95889-48da-41aa-9abb-0ee3861c73a3",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "NextInkTypè",
+                    "action": "SwitchInkType",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

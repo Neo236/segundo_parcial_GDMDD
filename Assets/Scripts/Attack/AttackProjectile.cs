@@ -2,22 +2,27 @@ using UnityEngine;
 
 public class AttackProjectile : MonoBehaviour
 {
-    //public AttackData attackData;
     public float speed = 100f;
-
-    Rigidbody2D rb;
     public float lifetime = 3f;
+    [SerializeField] private LayerMask targetLayers; // Add this to specify what the projectile can hit
 
+    private Rigidbody2D rb;
     private Vector3 moveDirection;
-
     private AttackData attackData;
-
     private SpriteRenderer spriteRenderer;
+    private CircleCollider2D circleCollider;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        circleCollider = GetComponent<CircleCollider2D>();
+
+        // Configure the collider as trigger
+        if (circleCollider != null)
+        {
+            circleCollider.isTrigger = true;
+        }
     }
 
     public void Initialize(Vector3 direction, AttackData attackData)
@@ -25,36 +30,35 @@ public class AttackProjectile : MonoBehaviour
         this.attackData = attackData;
         moveDirection = direction.normalized;
         rb.linearVelocity = moveDirection * speed;
+        
         if(spriteRenderer != null)
         {
             ChangeColorBasedOnElementType();
         }
+        
+        // Set the projectile's layer to avoid friendly fire
+        gameObject.layer = LayerMask.NameToLayer("Damageable");
+        
         Destroy(gameObject, lifetime);
     }
-
-
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // TO DO: Implementar lógica de colisión con enemigos o el entorno
-        if (collision.CompareTag("Enemy"))
+        if (attackData == null) return;
+
+        // Check if the collision is with a valid target layer
+        if (((1 << collision.gameObject.layer) & targetLayers) == 0)
         {
-            // Aquí podrías aplicar daño al enemigo
-            Debug.Log("Hit an enemy!");
-            EnemyClass enemy = collision.GetComponent<EnemyClass>();
-            if (enemy != null && attackData != null)
-            {
-                enemy.TakeDamage(attackData); // Aplica el daño al enemigo
-            }
-            Destroy(gameObject); // Destruye el proyectil al colisionar
-        }
-        else if (collision.CompareTag("Environment"))
-        {
-            // Aquí podrías implementar lógica para colisiones con el entorno
-            Debug.Log("Hit the environment!");
-            Destroy(gameObject); // Destruye el proyectil al colisionar
+            return; // Exit if the collided object is not in our target layers
         }
 
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.TakeDamage(attackData.baseDamage, attackData.elementType);
+        }
+
+        Destroy(gameObject);
     }
     
     private void ChangeColorBasedOnElementType()
