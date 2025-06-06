@@ -8,6 +8,9 @@ TagManager:
   - InGameSettingsMenu
   - MainMenuSettingsMenu
   - MainMenu
+  - Environment
+  - Enemy
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

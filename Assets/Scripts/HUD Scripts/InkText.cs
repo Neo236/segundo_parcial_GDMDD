@@ -6,6 +6,7 @@ namespace HUD_Scripts
 {
     public class InkText : MonoBehaviour
     {
+      //To Fix
         private PlayerInk _playerInk;
         private TextMeshProUGUI _inkText;
 

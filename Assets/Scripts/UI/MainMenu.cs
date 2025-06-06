@@ -1,36 +1,68 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class MainMenu : MonoBehaviour
 {
-    private GameObject _mainMenuUI;
-    private GameObject _optionsMenuUI;
+    [Header("Scenes & Spawn Points")]
+    [SerializeField] private string firstLevelSceneName = "Room 1";
+    [SerializeField] private string firstLevelSpawnPoint = "SpawnPoint_FromStart";
+
+    [Header("UI Panels")]
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject settingsMenuPanel;
+    
+    //[Header("Component References")]
+    //[SerializeField] private SettingsMenu settingsMenuScript;
 
     private void Awake()
     {
-        _mainMenuUI = GameObject.FindWithTag("MainMenu");
-        _optionsMenuUI = GameObject.FindWithTag("OptionsMenu");
-        
-        _mainMenuUI.SetActive(true);
-        _optionsMenuUI.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        if (settingsMenuPanel != null) settingsMenuPanel.SetActive(false);
+
+        if (UIManager.Instance != null && UIManager.Instance.SettingsMenuScript != null)
+        {
+            UIManager.Instance.SettingsMenuScript.OnBackAction += CloseSettingsMenu;            
+        }
+        else
+        {
+            Debug.Log("MainMenu no pudo suscribirse al SettingsMenu " +
+                      "porque UIManager o SettingsMenuScript no fueron encontrados.");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (UIManager.Instance != null && UIManager.Instance.SettingsMenuScript != null)
+        {
+            UIManager.Instance.SettingsMenuScript.OnBackAction -= CloseSettingsMenu;
+        }
     }
 
     public void StartGame()
     {
-        Debug.Log("Starting Game...");
-        //SceneManager.LoadScene("TutorialLevel");
+        Debug.Log($"Iniciando juego... cargando {firstLevelSceneName}");
+        
+        string sceneToUnload = gameObject.scene.name;
+
+        GameManager.Instance.TransitionToScene(firstLevelSceneName, firstLevelSpawnPoint, sceneToUnload);
     }
 
-    public void OpenOptionsMenu()
+    public void OpenSettingsMenu()
     {
-        _optionsMenuUI.SetActive(true);
-        _mainMenuUI.SetActive(false);
+        if (settingsMenuPanel != null) settingsMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
     }
 
-    public void CloseOptionsMenu()
+    public void CloseSettingsMenu()
     {
-        _optionsMenuUI.SetActive(false);
-        _mainMenuUI.SetActive(true);
+        if (settingsMenuPanel != null) settingsMenuPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Saliendo del juego...");
+        Application.Quit();
     }
 }

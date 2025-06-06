@@ -1,53 +1,95 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using System;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class SettingsMenu : MonoBehaviour
 {
-    [SerializeField] private PauseMenu pauseMenuScript;
-    [SerializeField] private GameObject settingsPanel;
+    //[SerializeField] private PauseMenu pauseMenuScript;
+    [Header("In-Game Settings UI")]
+    [SerializeField] private GameObject inGameSettingsPanel;
     
-    [SerializeField] private Slider masterVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider sfxVolumeSlider;
+    [SerializeField] private Slider inGameMasterVolumeSlider;
+    [SerializeField] private Slider inGameMusicVolumeSlider;
+    [SerializeField] private Slider inGameSfxVolumeSlider;
 
+    [Header("Main Menu Settings UI")]
+    [SerializeField] private GameObject mainMenuSettingsPanel;
+    [SerializeField] private Slider mainMenuMasterVolumeSlider;
+    [SerializeField] private Slider mainMenuMusicVolumeSlider;
+    [SerializeField] private Slider mainMenuSfxVolumeSlider;
+    public event Action OnBackAction;
+    
     private void Awake()
     {
-        InitializeSlider(masterVolumeSlider);
-        InitializeSlider(musicVolumeSlider);
-        InitializeSlider(sfxVolumeSlider);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        //InitializeSlider(inGameMasterVolumeSlider);
+        //InitializeSlider(inGameMusicVolumeSlider);
+        //InitializeSlider(inGameSfxVolumeSlider);
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu")
+        {
+            var mainMenuCanvas = GameObject.Find("MainMenuCanvas");
+            if (mainMenuCanvas != null)
+            {
+                mainMenuSettingsPanel = mainMenuCanvas.transform.Find("SettingsMenu").gameObject;
+                mainMenuMasterVolumeSlider = mainMenuSettingsPanel.transform.Find("MasterVolume").GetComponent<Slider>();
+                mainMenuMusicVolumeSlider = mainMenuSettingsPanel.transform.Find("MusicVolume").GetComponent<Slider>();
+                mainMenuSfxVolumeSlider = mainMenuSettingsPanel.transform.Find("SFXVolume").GetComponent<Slider>();
+                
+                SetupSliders(mainMenuMasterVolumeSlider, mainMenuMusicVolumeSlider, mainMenuSfxVolumeSlider);
+            }
+        }
+    }
+    public void SetupInGameSliders()
+    {
+        SetupSliders(inGameMasterVolumeSlider, inGameMusicVolumeSlider, inGameSfxVolumeSlider);
+    }
+    
+    private void SetupSliders(Slider master, Slider music, Slider sfx)
+    {
+        if (master == null || music == null || sfx == null)
+        {
+            Debug.LogWarning("Uno o más sliders no fueron encontrados durante la configuración.");
+            return;
+        }
+
+        // Limpiamos listeners anteriores para evitar duplicados
+        master.onValueChanged.RemoveAllListeners();
+        music.onValueChanged.RemoveAllListeners();
+        sfx.onValueChanged.RemoveAllListeners();
+        
+        // Inicializamos valores
+        InitializeSlider(master);
+        InitializeSlider(music);
+        InitializeSlider(sfx);
+        
+        // Cargamos valores de PlayerPrefs
+        master.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        music.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        sfx.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        
+        // Añadimos los nuevos listeners
+        master.onValueChanged.AddListener(OnMasterVolumeChanged);
+        music.onValueChanged.AddListener(OnMusicVolumeChanged);
+        sfx.onValueChanged.AddListener(OnSFXVolumeChanged);
+    }
+    
     private void InitializeSlider(Slider slider)
     {
         if (slider != null)
         {
             slider.minValue = 0.0001f;
             slider.maxValue = 1f;
-        }
-    }
-
-    private void Start()
-    {
-        LoadSliderValues();
-    }
-    
-    private void LoadSliderValues()
-    {
-        if (masterVolumeSlider != null)
-        {
-            masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        }
-    
-        if (musicVolumeSlider != null)
-        {
-            musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        }
-    
-        if (sfxVolumeSlider != null)
-        {
-            sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
         }
     }
 
@@ -95,7 +137,9 @@ public class SettingsMenu : MonoBehaviour
 
     private void HandleBackButton()
     {
-        if (settingsPanel.activeSelf)
+        if (inGameSettingsPanel.activeSelf || 
+            GameObject.Find("MainMenuCanvas")?.transform.Find("SettingsMenu")
+                .gameObject.activeSelf == true)
         {
             OnBackButtonClicked();
         }
@@ -103,10 +147,6 @@ public class SettingsMenu : MonoBehaviour
 
     public void OnBackButtonClicked()
     {
-        settingsPanel.SetActive(false);
-        if (pauseMenuScript != null)
-        {
-            pauseMenuScript.ReturnFromSettings();
-        }
+        OnBackAction?.Invoke();
     }
 }
