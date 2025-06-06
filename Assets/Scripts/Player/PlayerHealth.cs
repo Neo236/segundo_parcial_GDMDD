@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]private AudioClip hurtSound;
     [SerializeField]private AudioClip deathSound;
 
-    private float _currentHealth = 100f;
+    private float _currentHealth = 1000f;
     private float _maxHealth = 100f;
 
     public float CurrentHealth => _currentHealth;

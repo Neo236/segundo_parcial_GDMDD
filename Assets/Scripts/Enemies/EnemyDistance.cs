@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyDistance : EnemyClass
 {
-  [SerializeField] private float distanceToPlayer = 5f; // Distancia mínima para atacar al jugador
+  [SerializeField] private float distanceToPlayer = 8f; // Distancia mínima para atacar al jugador
   [SerializeField] private Transform attackPoint; // Punto de ataque del enemigo (opcional)
   [SerializeField] private GameObject attack; // Prefab o referencia al ataque (opcional)
   [SerializeField] private float attackCooldown = 2f; // Tiempo de espera entre ataques
