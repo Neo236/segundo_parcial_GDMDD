@@ -45,8 +45,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _initialGravityScale = _rb.gravityScale;
+ 
         
-        // Subscribe to input events
         MovementInput.OnHorizontalInput += HandleHorizontalMovement;
         MovementInput.OnJumpPressed += HandleJumpInput;
     }
