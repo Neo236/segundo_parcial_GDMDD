@@ -5,8 +5,8 @@ using UnityEngine.Serialization;
 public class MainMenu : MonoBehaviour
 {
     [Header("Scenes & Spawn Points")]
-    [SerializeField] private string firstLevelSceneName = "Room 1";
-    [SerializeField] private string firstLevelSpawnPoint = "SpawnPoint_FromStart";
+    [SerializeField] private SceneField firstLevelScene;
+    [SerializeField] private SpawnPointID firstLevelSpawnPoint;
 
     [Header("UI Panels")]
     [SerializeField] private GameObject mainMenuPanel;
@@ -14,6 +14,12 @@ public class MainMenu : MonoBehaviour
     
     //[Header("Component References")]
     //[SerializeField] private SettingsMenu settingsMenuScript;
+    
+    [Header("AudioClips")]
+    [SerializeField] private AudioClip menuMusic;
+    [SerializeField] private AudioClip firstLevelMusic;
+    [SerializeField] private AudioClip continueMusic;
+    [SerializeField] private bool stopMusicOnLoad;
 
     private void Awake()
     {
@@ -31,6 +37,14 @@ public class MainMenu : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (AudioManager.Instance != null && menuMusic != null)
+        { 
+            AudioManager.Instance.PlayMusic(menuMusic);
+        }
+    }
+
     private void OnDestroy()
     {
         if (UIManager.Instance != null && UIManager.Instance.SettingsMenuScript != null)
@@ -41,11 +55,12 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        Debug.Log($"Iniciando juego... cargando {firstLevelSceneName}");
-        
+        Debug.Log($"Iniciando juego... cargando {firstLevelScene.SceneName}...");
         string sceneToUnload = gameObject.scene.name;
 
-        GameManager.Instance.TransitionToScene(firstLevelSceneName, firstLevelSpawnPoint, sceneToUnload);
+        GameManager.Instance.TransitionToScene(firstLevelScene, 
+            firstLevelSpawnPoint, sceneToUnload, firstLevelMusic, stopMusicOnLoad);
+        
     }
 
     public void OpenSettingsMenu()

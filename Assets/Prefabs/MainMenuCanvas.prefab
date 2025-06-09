@@ -962,10 +962,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 514458595d03ff4469c1ec5bca0d18b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLevelSceneName: Room 1
-  firstLevelSpawnPoint: SpawnPoint_FromStart
+  firstLevelScene:
+    m_SceneAsset: {fileID: 102900000, guid: 224b2df3dcfb2584ab46ae3f95dd5764, type: 3}
+    m_SceneName: Room 1
+  firstLevelSpawnPoint: {fileID: 11400000, guid: 3a0de5e9b4b77f64aaf19b5dda256a65, type: 2}
   mainMenuPanel: {fileID: 6458724296391165516}
   settingsMenuPanel: {fileID: 5978776873101436085}
+  menuMusic: {fileID: 8300000, guid: 5a37468e62dd7bb4d9288713b6fe05f3, type: 3}
+  firstLevelMusic: {fileID: 8300000, guid: a54330eb422cd3540aeff3543e437073, type: 3}
+  continueMusic: {fileID: 0}
+  stopMusicOnLoad: 0
 --- !u!1 &4321487486783838327
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,9 +74,20 @@ public class SettingsMenu : MonoBehaviour
         InitializeSlider(sfx);
         
         // Cargamos valores de PlayerPrefs
-        master.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        music.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        sfx.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        float masterValue = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        float musicValue = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        float sfxValue = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        
+        master.value = masterValue;
+        music.value = musicValue;
+        sfx.value = sfxValue;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMasterVolume(masterValue);
+            AudioManager.Instance.SetMusicVolume(musicValue);
+            AudioManager.Instance.SetSfxVolume(sfxValue);  
+        }
         
         // Añadimos los nuevos listeners
         master.onValueChanged.AddListener(OnMasterVolumeChanged);

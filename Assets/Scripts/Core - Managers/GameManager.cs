@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,9 +10,11 @@ public class GameManager : MonoBehaviour
     [Header("Object References")]
     public GameObject playerObject;
     [SerializeField] private GameObject inGameCanvas;
-    private ScreenFader _screenFader;
+    [SerializeField] private ScreenFader screenFader;
+    [SerializeField] private SceneField mainMenuScene;
+    //[SerializeField] private SpawnPointID mainMenuSpawnPoint;
 
-    public string nextSpawnPointName;
+    public SpawnPointID nextSpawnPointID;
     private string _currentLoadedScene;
     
     public GameState CurrentGameState { get; private set; }
@@ -42,8 +43,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        _screenFader = inGameCanvas.GetComponentInChildren<ScreenFader>(true);
-        if (_screenFader == null)
+        if (screenFader == null)
         {
             Debug.LogError("¡No se encontró el componente ScreenFader en el InGameCanvas asignado! Las transiciones no tendrán fundido a negro.");
         }
@@ -61,18 +61,30 @@ public class GameManager : MonoBehaviour
     public void SetGameState(GameState newState)
     {
         CurrentGameState = newState;
+        Debug.Log($"Cambiando estado del juego a {CurrentGameState}");
 
         switch (CurrentGameState)
         {
             case GameState.MainMenu:
                 playerObject.SetActive(false);
-                inGameCanvas.SetActive(false);
+                if (UIManager.Instance != null && UIManager.Instance.PauseMenuScript != null)
+                {
+                    UIManager.Instance.PauseMenuScript.HideAllPausePanels();
+                }
+
+                if (inGameCanvas.transform.Find("HUD") != null)
+                {
+                    inGameCanvas.transform.Find("HUD").gameObject.SetActive(false);
+                }
                 Time.timeScale = 1f;
                 break;
             
             case GameState.Gameplay:
                 playerObject.SetActive(true);
-                inGameCanvas.SetActive(true);
+                if (inGameCanvas.transform.Find("HUD") != null)
+                {
+                    inGameCanvas.transform.Find("HUD").gameObject.SetActive(true);
+                }
                 if (UIManager.Instance != null && UIManager.Instance.PauseMenuScript != null)
                 {
                     UIManager.Instance.PauseMenuScript.HideAllPausePanels();
@@ -98,45 +110,101 @@ public class GameManager : MonoBehaviour
         Debug.Log("HUD Inicializado.");
     }
 
-    public void TransitionToScene(string sceneToLoad, string spawnPointName, string sceneToUnload)
+    public void TransitionToScene(SceneField sceneToLoad, SpawnPointID spawnID, string sceneToUnload,
+        AudioClip newMusic = null, bool stopMusic = false)
     {
-        nextSpawnPointName = spawnPointName;
-        StartCoroutine(TransitionCoroutine(sceneToLoad, sceneToUnload));
+        nextSpawnPointID = spawnID;
+        StartCoroutine(TransitionCoroutine(sceneToLoad, sceneToUnload, newMusic, stopMusic));
     }
 
-    private IEnumerator TransitionCoroutine(string sceneToLoad, string sceneToUnload)
+    private IEnumerator TransitionCoroutine(string sceneToLoad, string sceneToUnload, AudioClip newMusic, bool stopMusic)
     {
         SceneTransition.StartTransition();
-
-        yield return StartCoroutine(_screenFader.FadeOut());
-
-        if (!string.IsNullOrEmpty(sceneToUnload))
+        yield return StartCoroutine(screenFader.FadeOut());
+        
+        if (sceneToLoad == "MainMenu")
+        {
+            playerObject.SetActive(false);
+        }
+        
+        if (inGameCanvas.transform.Find("HUD") != null)
+        {
+            inGameCanvas.transform.Find("HUD").gameObject.SetActive(false);
+        }
+        
+        if (UIManager.Instance != null && UIManager.Instance.PauseMenuScript != null)
+        {
+            UIManager.Instance.PauseMenuScript.HideAllPausePanels();
+        }
+        
+        if (!string.IsNullOrEmpty(sceneToUnload) && SceneManager.GetSceneByName(sceneToUnload).isLoaded)
         {
             Debug.Log($"Descargando escena: {sceneToUnload}");
             yield return SceneManager.UnloadSceneAsync(sceneToUnload);
         }
+        
+        if (stopMusic)
+        {
+            AudioManager.Instance.StopMusic();
+        }
+        else if (newMusic != null)
+        {
+            AudioManager.Instance.PlayMusic(newMusic);
+        }
 
         Debug.Log($"Cargando escena: {sceneToLoad}");
         yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
-        
         _currentLoadedScene = sceneToLoad;
         
+        //Moví la lógica de PlayerSpawn a acá para poder eliminarlo
         if (sceneToLoad != "MainMenu")
         {
-            SetGameState(GameState.Gameplay);
-        }
-        else
-        {
-            SetGameState(GameState.MainMenu);
+            playerObject.SetActive(true);
         }
 
-        yield return StartCoroutine(_screenFader.FadeIn());
+        if (nextSpawnPointID != null)
+        {
+            Debug.Log($"Buscando punto de spawn ID: {nextSpawnPointID.name}");
+            SpawnPointIdentifier[] spawnPoints = FindObjectsOfType<SpawnPointIdentifier>();
+            bool foundSpawn = false;
+            
+            foreach (SpawnPointIdentifier spawnPoint in spawnPoints)
+            {
+                if (spawnPoint.spawnPointID == GameManager.Instance.nextSpawnPointID)
+                {
+                    playerObject.transform.position = spawnPoint.transform.position;
+                    Debug.Log($"Jugador movido a {spawnPoint.spawnPointID.name}");
+                    foundSpawn = true;
+                    break;
+                }
+            }
+
+            if (!foundSpawn)
+            {
+                Debug.Log($"No se encontró punto de spawn ID: {GameManager.Instance.nextSpawnPointID.name}");
+            }
+        }
+
+        if (MapRoomManager.Instance != null)
+        {
+            MapRoomManager.Instance.RevealRoom(sceneToLoad);
+        }
+
+        SetGameState(sceneToLoad != "MainMenu" ? GameState.Gameplay : GameState.MainMenu);
+
+        yield return StartCoroutine(screenFader.FadeIn());
         SceneTransition.EndTransition();
     }
 
     public void GoToMainMenu()
     {
-        SetGameState(GameState.MainMenu);
-        TransitionToScene("MainMenu", "", _currentLoadedScene);
+        string currentScene = _currentLoadedScene;
+        TransitionToScene(
+            mainMenuScene, 
+            null, 
+            currentScene, 
+            null, 
+            true
+            );
     }
 }

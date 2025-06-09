@@ -1,42 +1,56 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerSpawn : MonoBehaviour
 {
     void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
     void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (mode == LoadSceneMode.Additive)
         {
-            Debug.Log($"Se ha cargado la escena {scene.name}. Buscando punto de spawn '{GameManager.Instance.nextSpawnPointName}'");
+            StartCoroutine(FindAndMoveToSpawnPoint(scene));
+        }
+    }
+    
+    private IEnumerator FindAndMoveToSpawnPoint(Scene scene)
+    {
+        yield return new WaitForEndOfFrame();
 
-            GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-            bool foundSpawn = false;
+        if (GameManager.Instance.nextSpawnPointID == null)
+        {
+            Debug.LogWarning("No se ha definido un punto de spawn para el jugador.");
+            yield break;       
+        }
+        
+        Debug.Log($"Buscando punto de spawn ID: {GameManager.Instance.nextSpawnPointID.name}");
+        
+        SpawnPointIdentifier[] spawnPoints = FindObjectsOfType<SpawnPointIdentifier>();
+        bool foundSpawn = false;
 
-            foreach (GameObject spawnPoint in spawnPoints)
+        foreach (SpawnPointIdentifier spawnPoint in spawnPoints)
+        {
+            if (spawnPoint.spawnPointID == GameManager.Instance.nextSpawnPointID)
             {
-                if (spawnPoint.name == GameManager.Instance.nextSpawnPointName)
-                {
-                    transform.position = spawnPoint.transform.position;
-                    Debug.Log($"Jugador movido a {spawnPoint.name}");
-                    foundSpawn = true;
-                    break;
-                }
+                transform.position = spawnPoint.transform.position;
+                Debug.Log($"Jugador movido a {spawnPoint.spawnPointID.name}");
+                foundSpawn = true;
+                break;
             }
+        }
 
-            if (!foundSpawn)
-            {
-                Debug.LogWarning($"No se encontró el punto de spawn llamado '{GameManager.Instance.nextSpawnPointName}' en la escena '{scene.name}'.");
-            }
+        if (!foundSpawn)
+        {
+            Debug.Log($"No se encontró punto de spawn ID: {GameManager.Instance.nextSpawnPointID.name}");
         }
     }
 }
