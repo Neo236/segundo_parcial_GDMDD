@@ -30,7 +30,9 @@ public class AttackProjectile : MonoBehaviour
     public void Initialize(Vector3 direction, AttackData attackData)
     {
         this.attackData = attackData;
-        moveDirection = direction.normalized;
+       
+        moveDirection = new Vector2(direction.x, direction.y).normalized;
+        Debug.Log("direccion: " + moveDirection);
         rb.linearVelocity = moveDirection * speed;
         
         if(spriteRenderer != null)
@@ -44,14 +46,20 @@ public class AttackProjectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
     
+
+    private void FixedUpdate()
+    {
+        Debug.Log("Velocidad actual: " + rb.linearVelocity);
+    }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (attackData == null) return;
 
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             enemy = collision.gameObject.GetComponent<EnemyDistance>();
-           
+
 
             if (enemy == null)
             {

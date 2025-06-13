@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private GroundCheck _groundCheck;
 
+  
+
     private void Awake()
     {
         InitializeComponents();
