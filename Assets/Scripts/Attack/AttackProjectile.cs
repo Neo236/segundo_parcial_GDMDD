@@ -32,7 +32,7 @@ public class AttackProjectile : MonoBehaviour
         this.attackData = attackData;
        
         moveDirection = new Vector2(direction.x, direction.y).normalized;
-        Debug.Log("direccion: " + moveDirection);
+       
         rb.linearVelocity = moveDirection * speed;
         
         if(spriteRenderer != null)
@@ -47,11 +47,6 @@ public class AttackProjectile : MonoBehaviour
     }
     
 
-    private void FixedUpdate()
-    {
-        Debug.Log("Velocidad actual: " + rb.linearVelocity);
-    }
-    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (attackData == null) return;
