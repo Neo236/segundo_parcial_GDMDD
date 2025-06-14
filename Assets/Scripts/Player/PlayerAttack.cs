@@ -6,7 +6,12 @@ public class PlayerAttack : MonoBehaviour
 {
     [FormerlySerializedAs("attackSpwawner")]
     [Header("Attack Settings")]
-    [SerializeField] private Transform attackSpawner;
+    [SerializeField] private Transform attackSpawnerRight;
+    [SerializeField] private Transform attackSpawnerLeft;
+    [SerializeField] private Transform attackSpawnerUp;
+    [SerializeField] private Transform attackSpawnerDown;
+
+
     [SerializeField] private GameObject attackProjectile;
     [SerializeField] private float attackCooldown = 0.2f;
     [SerializeField] private AudioClip noInkSound; // Optional sound for when there's not enough ink
@@ -16,15 +21,38 @@ public class PlayerAttack : MonoBehaviour
     private AttackSelector _attackSelector;
     private InkSelector _inkSelector;
 
+    private PlayerInput _playerInput;
+    private InputAction _moveAction;
+    private InputAction _attackAction;
+
+
+    private Vector2 _lookDirection = Vector2.right;
     private void Awake()
     {
         InitializeComponents();
-        AttackInput.OnAttackButtonPressed += HandleAttack;
+        _playerInput = GetComponent<PlayerInput>();
+        var actionMap = _playerInput.actions.FindActionMap("OnGame");
+        _moveAction = actionMap.FindAction("Move");
+        _attackAction = actionMap.FindAction("Attack");
+
+        _attackAction.performed += ctx => HandleAttack();
     }
 
     private void OnDestroy()
     {
         AttackInput.OnAttackButtonPressed -= HandleAttack;
+    }
+
+     private void OnEnable()
+    {
+        _moveAction.Enable();
+        _attackAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _moveAction.Disable();
+        _attackAction.Disable();
     }
 
     private void InitializeComponents()
@@ -43,12 +71,25 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         _currentCooldownTimer += Time.deltaTime;
+
+         // Lee el valor de Move para actualizar la dirección de mirada
+        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+
+        // Prioridad: vertical sobre horizontal
+        if (moveInput.y > 0.5f)
+            _lookDirection = Vector2.up;
+        else if (moveInput.y < -0.5f)
+            _lookDirection = Vector2.down;
+        else if (moveInput.x > 0.5f)
+            _lookDirection = Vector2.right;
+        else if (moveInput.x < -0.5f)
+            _lookDirection = Vector2.left;
     }
 
     private void HandleAttack()
     {
         if (_currentCooldownTimer <= attackCooldown) return;
-        
+
         if (_playerInk.CurrentInk < _attackSelector.selectedAttack.inkCost)
         {
             Debug.Log("Not enough ink to attack");
@@ -61,24 +102,46 @@ public class PlayerAttack : MonoBehaviour
 
         PerformAttack();
     }
-    
+
     private void PerformAttack()
     {
         _currentCooldownTimer = 0;
         _playerInk.CurrentInk -= _attackSelector.selectedAttack.inkCost;
-        
+
         _attackSelector.selectedAttack.elementType = _inkSelector.currentInk;
-        
-        // Play the attack sound if one is assigned
+
         if (_attackSelector.selectedAttack.soundEffect != null)
         {
             AudioManager.Instance.PlaySfx(_attackSelector.selectedAttack.soundEffect);
         }
-        
-        GameObject projectileInstance = Instantiate(attackProjectile, attackSpawner.position, attackSpawner.rotation);
-        Vector3 direction = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
+
+        Transform spawner;
+        Vector3 direction;
+
+        if (_lookDirection == Vector2.right)
+        {
+            spawner = attackSpawnerRight;
+            direction = Vector3.right;
+        }
+        else if (_lookDirection == Vector2.left)
+        {
+            spawner = attackSpawnerLeft;
+            direction = Vector3.left;
+        }
+        else if (_lookDirection == Vector2.up)
+        {
+            spawner = attackSpawnerUp;
+            direction = Vector3.up;
+        }
+        else // down
+        {
+            spawner = attackSpawnerDown;
+            direction = Vector3.down;
+        }
+
+        GameObject projectileInstance = Instantiate(attackProjectile, spawner.position, spawner.rotation);
         projectileInstance.GetComponent<AttackProjectile>().Initialize(direction, _attackSelector.selectedAttack);
-        
+
         LogAttackDetails();
     }
 
