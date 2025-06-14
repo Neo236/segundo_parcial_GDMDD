@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float lifetime = 3f;
+    [SerializeField] private float lifetime = 2f;
     [SerializeField] private int damage = 10;
 
     private Transform target;
