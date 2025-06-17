@@ -43,7 +43,10 @@ public class BasicShadow : EnemyClass
     private void Moverse()
     {
         jugDireccion.y = 0;
-        rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * jugDireccion);
+        if (_groundCheck.indivGrounded[2] && volteadoReal || _groundCheck.indivGrounded[0] && !volteadoReal) 
+        {
+            rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * jugDireccion);
+        }
        
     }
     private float DistanciaObjetivo()

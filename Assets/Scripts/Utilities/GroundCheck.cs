@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GroundCheck : MonoBehaviour
 {
@@ -14,9 +15,11 @@ public class GroundCheck : MonoBehaviour
     private LayerMask _groundMask;
 
     public bool IsGrounded { get; private set; }
+    public bool[] indivGrounded;
 
     private void Awake()
     {
+        indivGrounded = new bool[RAY_COUNT];
         InitializeRayOffsets();
         _groundMask = LayerMask.GetMask("Ground");
         if (_groundMask == 0)
@@ -58,11 +61,11 @@ public class GroundCheck : MonoBehaviour
                 GROUND_CHECK_DISTANCE, 
                 _groundMask
             );
-                
             if (hitGround)
             {
-                IsGrounded = true;
                 
+                IsGrounded = true;
+                indivGrounded[i] = true;
                 if (showDebugRays)
                 {
                     Debug.DrawRay(
@@ -72,15 +75,23 @@ public class GroundCheck : MonoBehaviour
                     );
                 }
             }
-            else if (showDebugRays)
+            else 
             {
-                Debug.DrawRay(
-                    _groundCheckRays[i].origin, 
-                    Vector2.down * GROUND_CHECK_DISTANCE, 
+                indivGrounded[i] = false;
+                if (showDebugRays)
+                {
+                   
+                    Debug.DrawRay(
+                    _groundCheckRays[i].origin,
+                    Vector2.down * GROUND_CHECK_DISTANCE,
                     Color.green
                 );
+                }
+              
             }
+
         }
+        
     }
     public void AdaptRaycastToHitbox(Collider2D collider)
     {
