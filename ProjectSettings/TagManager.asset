@@ -8,6 +8,8 @@ TagManager:
   - InGameSettingsMenu
   - MainMenuSettingsMenu
   - MainMenu
+  - Environment
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - UI
   - Ground
   - Damageable
-  - 
-  - 
+  - Enemigos
+  - Player
   - 
   - 
   - 

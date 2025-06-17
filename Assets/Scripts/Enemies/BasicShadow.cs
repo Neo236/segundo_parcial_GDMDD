@@ -1,44 +1,50 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class BasicShadow : EnemyClass
 {
-    [SerializeField] private float distanceToPlayer ;
-    [SerializeField] private GameObject player;
+
+
+    
     [SerializeField] private float velocidad;
     [SerializeField] private float attackDistance;
     [SerializeField] private float attackCooldown = 2f; // Tiempo de espera entre ataques
-    [SerializeField] private GameObject attack; // Prefab o referencia al ataque (opcional)
-    [SerializeField] private Transform attackPoint; // Punto de ataque del enemigo (opcional)
+    [SerializeField] private HitAttack attack; // Prefab o referencia al ataque (opcional)
+    [SerializeField] private GameObject attackPoint; // Punto de ataque del enemigo (opcional)
     private Rigidbody2D rb;
     private float lastAttackTime;
-    private Vector3 objetivo;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+    
+
     }
     private void Update()
     {
+        if (player != null && DetectarJugador())
+        {
+            if (Time.time >= lastAttackTime + attackCooldown && !(DistanciaObjetivo() <= attackDistance))
+            {
 
-        if (player != null && DistanciaObjetivo() <= distanceToPlayer && !(DistanciaObjetivo() <attackDistance))
-        {
-            Moverse();
-        }
-        if (Time.time >= lastAttackTime + attackCooldown)
-        {
-            AttackPlayer();
-            lastAttackTime = Time.time;
+                Moverse();
+
+
+            }
+            if (DistanciaObjetivo() <= attackDistance && Time.time >= lastAttackTime + attackCooldown)
+            {
+                AttackPlayer();
+                lastAttackTime = Time.time;
+            }
         }
     }
     private void Moverse()
     {
-        Console.WriteLine("Moviendose");
-        Vector2 direccion = new Vector2(player.transform.position.x - transform.position.x, 0);
-
-        rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * direccion);
-
+        jugDireccion.y = 0;
+        rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * jugDireccion);
+       
     }
     private float DistanciaObjetivo()
     {
@@ -49,11 +55,11 @@ public class BasicShadow : EnemyClass
     {
 
 
-        if (attack != null && attackPoint != null && player != null)
+        if (attack != null && attack != null && player != null)
         {
             Console.WriteLine("Atacando");
-            GameObject projectile = Instantiate(attack, attackPoint.position, Quaternion.identity);
-            EnemyAttack enemyAttack = projectile.GetComponent<EnemyAttack>();
+          
+           attack.Activarse();
            
         }
     }

@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 5038763436654104059}
   - component: {fileID: 3340195846639270565}
   - component: {fileID: -5866794771976404519}
-  - component: {fileID: -8609457720656522455}
-  - component: {fileID: -117788847709605358}
+  - component: {fileID: 3820057326609959999}
   m_Layer: 0
   m_Name: ShadowAttack
   m_TagString: Untagged
@@ -164,7 +163,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-8609457720656522455
+--- !u!114 &3820057326609959999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,21 +172,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2420240510192197575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6d2a2fb39af2e8408c7df00cd9c0527, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a6f7ed72625ca148aceecf4c0f006e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  lifetime: 10
+  lifetime: 2
   damage: 10
---- !u!114 &-117788847709605358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2420240510192197575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907db9a7a7da60c4a887bc966a0976e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Sprite: {fileID: 5038763436654104059}
+  Hitbox: {fileID: -5866794771976404519}
+  Body: {fileID: 3340195846639270565}
+  target: {fileID: 0}
