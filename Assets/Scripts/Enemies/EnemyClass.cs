@@ -1,17 +1,41 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class EnemyClass : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] ElementType[] ElementDefense;
-
+    protected GroundCheck _groundCheck;
+        [SerializeField] ElementType[] ElementDefense;
+    protected Vector2 jugDireccion; 
     [SerializeField] ElementType _weakness; // Datos del ataque que el enemigo puede recibir
     [SerializeField] private int health = 100; // Salud del enemigo, puedes ajustarla según sea necesario
-
-
-    public bool IsDead { get; private set; } = false;
-    void Start()
+    [SerializeField] protected GameObject player;
+    [SerializeField] protected bool volteadoReal;
+    [SerializeField] protected float distanceToPlayer;
+    protected RaycastHit2D vision;
+    [SerializeField] protected LayerMask detectionMask;
+    [SerializeField]protected SpriteRenderer sprite;
+    protected BoxCollider2D hitbox;
+    
+    protected virtual void Awake()
     {
+           
+        sprite =GetComponent<SpriteRenderer>();
+        detectionMask = LayerMask.GetMask("Ground", "Player");
+        player = GameObject.FindWithTag("Player");
+      hitbox= GetComponent<BoxCollider2D>();
+      
+
+    }
+    public bool IsDead { get; private set; } = false;
+    protected virtual void Start()
+    {
+        _groundCheck = GetComponent<GroundCheck>();
+        hitbox = GetComponent<BoxCollider2D>();
+        _groundCheck.AdaptRaycastToHitbox(hitbox);
+
+
 
     }
 
@@ -73,6 +97,45 @@ public class EnemyClass : MonoBehaviour
             }
         }
         return false;
+    }
+    protected virtual bool DetectarJugador()
+
+    {
+        jugDireccion = (player.transform.position - transform.position).normalized;
+      
+        vision = Physics2D.Raycast(transform.position,jugDireccion, distanceToPlayer,detectionMask);
+        
+      
+        if (vision.collider != false && vision.collider.CompareTag("Player"))
+        {
+            if (sprite.flipX==true) 
+            { sprite.flipX = false;}
+
+            {
+                if ((vision.collider.transform.position.x-transform.position.x) <= 0)
+                {
+                     volteadoReal = false;
+
+                }
+                else
+                {
+                    volteadoReal = true;
+                }
+               
+            }
+            return true;
+        }
+        else {return false;}
+    }
+    protected void VoltearAlJugador()
+    {
+        if ((volteadoReal && transform.localScale.x > 0) || (!volteadoReal && transform.localScale.x < 0))
+        {
+            Vector3 escala = transform.localScale;
+            escala.x *= -1;
+            transform.localScale = escala;
+        }
+
     }
     
     private void Die()
