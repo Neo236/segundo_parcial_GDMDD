@@ -189,7 +189,8 @@ MonoBehaviour:
   velocidad: 2
   attackDistance: 4
   attackCooldown: 2
-  attack: {fileID: 876780823868834234}
+  attack: {fileID: 2420240510192197575, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
+  attackScript: {fileID: 3820057326609959999, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
   attackPoint: {fileID: 0}
 --- !u!1001 &4118931523202485637
 PrefabInstance:
@@ -272,17 +273,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
---- !u!114 &876780823868834234 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3820057326609959999, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
-  m_PrefabInstance: {fileID: 4118931523202485637}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a6f7ed72625ca148aceecf4c0f006e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1689870247077590816 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 3340195846639270565, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}

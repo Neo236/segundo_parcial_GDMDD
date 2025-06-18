@@ -11,15 +11,20 @@ public class BasicShadow : EnemyClass
     [SerializeField] private float velocidad;
     [SerializeField] private float attackDistance;
     [SerializeField] private float attackCooldown = 2f; // Tiempo de espera entre ataques
-    [SerializeField] private HitAttack attack; // Prefab o referencia al ataque (opcional)
+    [SerializeField] private GameObject attack;
+    [SerializeField] private HitAttack attackScript; // Prefab o referencia al ataque (opcional)
     [SerializeField] private GameObject attackPoint; // Punto de ataque del enemigo (opcional)
+    [SerializeField]private Vector3 attackPosition;
+    [SerializeField] private Vector3 scaleAttack;
+    
     private Rigidbody2D rb;
     private float lastAttackTime;
 
     private void Awake()
     {
+        attack = Instantiate(attack,transform);
         rb = GetComponent<Rigidbody2D>();
-    
+        attackScript = GetComponentInChildren<HitAttack>();
 
     }
     private void Update()
@@ -58,11 +63,11 @@ public class BasicShadow : EnemyClass
     {
 
 
-        if (attack != null && attack != null && player != null)
+        if (attackScript != null && attackScript != null && player != null)
         {
             Console.WriteLine("Atacando");
           
-           attack.Activarse();
+           attackScript.Activarse();
            
         }
     }
