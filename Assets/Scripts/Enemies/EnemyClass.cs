@@ -8,6 +8,8 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] ElementType _weakness; // Datos del ataque que el enemigo puede recibir
     [SerializeField] private int health = 100; // Salud del enemigo, puedes ajustarla según sea necesario
 
+
+    public bool IsDead { get; private set; } = false;
     void Start()
     {
 
@@ -78,6 +80,7 @@ public class EnemyClass : MonoBehaviour
         // Lógica para manejar la muerte del enemigo
         // Por ejemplo, podrías reproducir una animación de muerte, soltar objetos, etc.
         Debug.Log("Enemy has died.");
+        IsDead = true; // Marcar al enemigo como muerto
         Destroy(gameObject); // Destruye el objeto del enemigo
     }
 }

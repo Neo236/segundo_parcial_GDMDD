@@ -12,6 +12,8 @@ public class AttackProjectile : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
 
+    private EnemyClass enemy; // Reference to the enemy that fired this projectile
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,7 +30,9 @@ public class AttackProjectile : MonoBehaviour
     public void Initialize(Vector3 direction, AttackData attackData)
     {
         this.attackData = attackData;
-        moveDirection = direction.normalized;
+       
+        moveDirection = new Vector2(direction.x, direction.y).normalized;
+       
         rb.linearVelocity = moveDirection * speed;
         
         if(spriteRenderer != null)
@@ -42,9 +46,28 @@ public class AttackProjectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
     
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (attackData == null) return;
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            enemy = collision.gameObject.GetComponent<EnemyDistance>();
+
+
+            if (enemy == null)
+            {
+                return; // Ignore if the enemy is already dead
+            }
+            else
+            {
+                Debug.Log($"Enemy not found or already dead: {collision.gameObject.name}");
+                enemy.TakeDamage(attackData);
+                Destroy(gameObject); // Destroy the projectile after hitting the enemy
+            }
+            return; // Ignore self-collision
+        }
 
         // Check if the collision is with a valid target layer
         if (((1 << collision.gameObject.layer) & targetLayers) == 0)

@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private bool _canJump;
     private Rigidbody2D _rb;
     private GroundCheck _groundCheck;
-
     // Propiedades públicas para las plataformas
     public bool IsDropping => _dropThroughTimer > 0f;
     public bool IsGrounded => _groundCheck.IsGrounded;
@@ -55,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _initialGravityScale = _rb.gravityScale;
+ 
         
-        // Subscribe to input events
         MovementInput.OnHorizontalInput += HandleHorizontalMovement;
         MovementInput.OnVerticalInput += HandleVerticalMovement;
         MovementInput.OnJumpPressed += HandleJumpInput;
