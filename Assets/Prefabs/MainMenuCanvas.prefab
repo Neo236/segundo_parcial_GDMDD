@@ -964,10 +964,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstLevelScene:
     m_SceneAsset: {fileID: 102900000, guid: 224b2df3dcfb2584ab46ae3f95dd5764, type: 3}
-    m_SceneName: Room 1
+    m_SceneName: Zone 1
   firstLevelSpawnPoint: {fileID: 11400000, guid: 3a0de5e9b4b77f64aaf19b5dda256a65, type: 2}
+  startingZoneConfig: {fileID: 11400000, guid: b89f5efde03912d40a39a0c01d1b49b9, type: 2}
   mainMenuPanel: {fileID: 6458724296391165516}
   settingsMenuPanel: {fileID: 5978776873101436085}
+  startButton: {fileID: 619720595233707856}
+  backButton: {fileID: 7621879868800565737}
   menuMusic: {fileID: 8300000, guid: 5a37468e62dd7bb4d9288713b6fe05f3, type: 3}
   firstLevelMusic: {fileID: 8300000, guid: a54330eb422cd3540aeff3543e437073, type: 3}
   continueMusic: {fileID: 0}
