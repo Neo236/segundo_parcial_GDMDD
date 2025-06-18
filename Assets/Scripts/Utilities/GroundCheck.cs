@@ -14,9 +14,9 @@ public class GroundCheck : MonoBehaviour
     private readonly Vector2[] _rayOffsets = new Vector2[RAY_COUNT];
     private LayerMask _groundMask;
     // NUEVO: Variables para plataformas one-way
-    private bool _isOnOneWayPlatform = false;
-    private Transform _currentPlatformTransform = null;
-    private bool _forcedGroundedState = false;
+    private bool _isOnOneWayPlatform ;
+    private Transform _currentPlatformTransform;
+    private bool _forcedGroundedState;
     public bool IsOnOneWayPlatform => _isOnOneWayPlatform;
     public Transform CurrentPlatform => _currentPlatformTransform;
     public bool IsGrounded { get; private set; }
