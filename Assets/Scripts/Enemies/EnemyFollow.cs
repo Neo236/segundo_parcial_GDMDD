@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 public class EnemyFollow:EnemyClass
 
 {
-    [SerializeField] private float distanceToPlayer = 8f; 
+    [SerializeField] private float distanceToPlayer = 100f; 
     [SerializeField] private GameObject player; 
     [SerializeField] private float velocidad;
     private Rigidbody2D rb;
@@ -20,9 +21,11 @@ public class EnemyFollow:EnemyClass
         {
             Moverse();
         }
+       
     }
     private void Moverse()
     {
+        Console.WriteLine("Moviendose");
         Vector2 direccion = new Vector2(player.transform.position.x-transform.position.x,0);
 
         rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * direccion);

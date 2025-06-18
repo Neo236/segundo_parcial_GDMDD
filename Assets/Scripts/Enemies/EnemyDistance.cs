@@ -1,28 +1,39 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyDistance : EnemyClass
 {
-  [SerializeField] private float distanceToPlayer = 8f; // Distancia mínima para atacar al jugador
-  [SerializeField] private Transform attackPoint; // Punto de ataque del enemigo (opcional)
+   // Distancia mínima para atacar al jugador
+  [SerializeField] private GameObject attackPoint; // Punto de ataque del enemigo (opcional)
+    [SerializeField] private Vector3 attackPointPos;
   [SerializeField] private GameObject attack; // Prefab o referencia al ataque (opcional)
   [SerializeField] private float attackCooldown = 2f; // Tiempo de espera entre ataques
-  [SerializeField] private GameObject Player; // Referencia al jugador
+ 
 
   private float lastAttackTime;
-
-  void Start()
+    protected override void Awake()
+    {
+        base.Awake();
+        attackPoint = new GameObject("AttackSpawner");
+        attackPoint.transform.SetParent(transform);
+        attackPoint.transform.localPosition = attackPointPos;
+    }
+    protected override void Start()
   {
-    lastAttackTime = -attackCooldown; // Permite atacar inmediatamente al iniciar si está en rango
+        base.Start();
+        distanceToPlayer = 8f;
+        lastAttackTime = -attackCooldown; // Permite atacar inmediatamente al iniciar si está en rango
   }
 
   void Update()
   {
-    if (Player == null) return;
+    if (player == null) return;
 
-    float distance = Vector3.Distance(transform.position, Player.transform.position);
+ 
 
-    if (distance <= distanceToPlayer && Time.time >= lastAttackTime + attackCooldown)
+    if (DetectarJugador() && Time.time >= lastAttackTime + attackCooldown)
     {
+            VoltearAlJugador();
       AttackPlayer();
       lastAttackTime = Time.time;
     }
@@ -32,13 +43,13 @@ public class EnemyDistance : EnemyClass
   {
 
 
-    if (attack != null && attackPoint != null && Player != null)
+    if (attack != null && attackPoint != null && player != null)
     {
-      GameObject projectile = Instantiate(attack, attackPoint.position, Quaternion.identity);
+      GameObject projectile = Instantiate(attack, attackPoint.transform.position, Quaternion.identity);
       EnemyAttack enemyAttack = projectile.GetComponent<EnemyAttack>();
       if (enemyAttack != null)
       {
-        enemyAttack.SetTarget(Player.transform);
+        enemyAttack.SetTarget(player.transform);
       }
     }
   }
