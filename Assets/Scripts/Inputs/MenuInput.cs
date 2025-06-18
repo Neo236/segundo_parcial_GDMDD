@@ -4,14 +4,19 @@ using UnityEngine.InputSystem;
 
 public class MenuInput : MonoBehaviour
 {
-    public static event Action OnPauseButtonPressed;
+    //public static event Action OnPauseButtonPressed;
     public static event Action OnBackButtonPressed;
+    
+    // ¡NUEVOS EVENTOS PARA EL MAPA!
+    public static event Action OnOpenMapButtonPressed;
+    public static event Action<Vector2> OnMapNavigate;
+    public static event Action<Vector2> OnMapZoom;
 
     public void ReadPauseInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            OnPauseButtonPressed?.Invoke();
+            GameManager.Instance.TogglePause();
         }
     }
     
@@ -23,4 +28,23 @@ public class MenuInput : MonoBehaviour
         }
     }
     
+    // ¡NUEVO MÉTODO PARA ABRIR/CERRAR EL MAPA!
+    public void ReadOpenMapInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnOpenMapButtonPressed?.Invoke();
+        }
+    }
+    
+    // NUEVOS MÉTODOS PARA CONTROLAR EL MAPA
+    public void ReadNavigateInput(InputAction.CallbackContext context)
+    {
+        OnMapNavigate?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    public void ReadScrollInput(InputAction.CallbackContext context)
+    {
+        OnMapZoom?.Invoke(context.ReadValue<Vector2>());
+    }
 }

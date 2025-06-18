@@ -8,6 +8,7 @@ namespace HUD_Scripts
 {
    public class HealthText : MonoBehaviour
    {
+      //To Fix
       private PlayerHealth _playerHealth;
       private TextMeshProUGUI _healthText;
       private void Awake()
