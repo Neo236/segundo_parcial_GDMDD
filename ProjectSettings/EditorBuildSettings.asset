@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TestScenes/PersistentScene.unity
+    guid: 7b1e65a6303565a4b835a7ae2d3926ec
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 8596347924e58564c94b46e09ea009eb
   - enabled: 1
@@ -17,6 +20,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndScreen.unity
     guid: baff7980a6643c74d946f2dd4cf59b29
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Zone 1.unity
+    guid: 224b2df3dcfb2584ab46ae3f95dd5764
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Zone 2.unity
+    guid: c149fe866b2853d45b8c42f482e67b43
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Zone 3.unity
+    guid: 97bb8e71157432f42b6a94d8b724f1d7
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Zone 4.unity
+    guid: b28344b5cbf3d934fbb486f64f0f558e
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Boss1.unity
+    guid: 91e2337b8bf8f6541b294141963c4125
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Boss2.unity
+    guid: b4e0c5e1a81920b4d9a20cde0ee2237b
+  - enabled: 1
+    path: Assets/Scenes/TestScenes/Boss3.unity
+    guid: e4ec2364f2b41e845982d045fa8fabc9
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: e66e9a899dda1234fa788ccfbfc9d425, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

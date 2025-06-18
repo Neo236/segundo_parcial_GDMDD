@@ -7,19 +7,16 @@ namespace HUD_Scripts
    {
       private PlayerHealth _playerHealth;
       private Slider _healthSlider;
-      private void Awake()
+      public void Initialize()
       {
-         PlayerHealth.OnTakeDamage += UpdateHealthUI;
          _healthSlider = GetComponent<Slider>();
-         _playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
-      }
-
-      private void Start()
-      {
+         _playerHealth = GameManager.Instance.playerObject.GetComponent<PlayerHealth>();
          _healthSlider.maxValue = _playerHealth.MaxHealth;
          UpdateHealthUI();
+         
+         PlayerHealth.OnTakeDamage += UpdateHealthUI;
       }
-
+      
       private void OnDestroy()
       {
          PlayerHealth.OnTakeDamage -= UpdateHealthUI;
@@ -29,6 +26,5 @@ namespace HUD_Scripts
       {
          _healthSlider.value = _playerHealth.CurrentHealth;
       }
-   
    }
 }

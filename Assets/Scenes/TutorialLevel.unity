@@ -119,6 +119,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+
+--- !u!4 &139565478 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2498475472979754450, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+  m_PrefabInstance: {fileID: 8303982346493335190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &202904542
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +254,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+
 --- !u!1 &349256389
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1319,7 @@ MonoBehaviour:
   _mainMixer: {fileID: 24100000, guid: a8244a099771fd44fb7551cc6975d930, type: 2}
   _musicSource: {fileID: 202904544}
   _sfxSource: {fileID: 799785503}
+
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,6 +1404,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 871630442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
 --- !u!1 &799785501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2431,6 +2440,11 @@ Transform:
   - {fileID: 1386437813}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1907737781 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9034058877249428295, guid: 35b029187445d9d4bbe1d2054b24492b, type: 3}
+  m_PrefabInstance: {fileID: 8303982346493335190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1990862605
 GameObject:
   m_ObjectHideFlags: 0
@@ -3081,6 +3095,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1581192749}
   m_SourcePrefab: {fileID: 100100000, guid: 36ad0cc01221a0f4fafb747eea0ad8bd, type: 3}
+
 --- !u!1001 &8303982346493335190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3331,13 +3346,11 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1469842908607991616}
+  - {fileID: 519420032}
   - {fileID: 8303982346493335190}
   - {fileID: 9084639612064216217}
   - {fileID: 871630442}
   - {fileID: 1718773848}
-  - {fileID: 1990862608}
-  - {fileID: 574732166}
   - {fileID: 3022212917499713312}
   - {fileID: 1313670834}
   - {fileID: 1112147900}

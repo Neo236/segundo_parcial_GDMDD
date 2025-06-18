@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88ed8d970dbb334bb3f473e729e46ba, type: 3}
+  m_Name: Zone 3
+  m_EditorClassIdentifier: 
+  zoneNumber: 3
+  zoneName: Zone 3
+  zoneScene:
+    m_SceneAsset: {fileID: 102900000, guid: 97bb8e71157432f42b6a94d8b724f1d7, type: 3}
+    m_SceneName: Zone 3
+  gridWidth: 1
+  gridHeight: 4
+  worldMinBounds: {x: 20, y: -86}
+  worldMaxBounds: {x: 21, y: 1}
+  virtualCameraPrefab: {fileID: 0}
+  overrideCameraSettings: 0
+  cameraSize: 8
+  cameraDamping: 0.5
+  deadZoneWidth: 0.1
+  deadZoneHeight: 0.1
+  sectorColor: {r: 0.0744927, g: 0.5849056, b: 0.29705372, a: 1}
+  unrevealedColor: {r: 0.5726579, g: 0.23335709, b: 0.7169812, a: 1}
+  playerIconColor: {r: 0.57254905, g: 0.23529413, b: 0.7176471, a: 1}
+  enablePlayerIconBlinking: 1
+  playerIconBlinkSpeed: 2
+  showDebugInfo: 1
+  showDebugGizmos: 1

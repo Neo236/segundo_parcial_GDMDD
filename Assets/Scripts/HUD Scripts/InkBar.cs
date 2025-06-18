@@ -5,6 +5,7 @@ namespace HUD_Scripts
 {
     public class InkBar : MonoBehaviour
     {
+        //To Fix
         private Slider _inkSlider;
         private PlayerInk _playerInk;
         private Image _fillImage;

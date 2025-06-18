@@ -9,18 +9,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float fallGravityMultiplier = 2f;
     [SerializeField] private float jumpBufferTime = 0.1f;
     
+    [Header("Platform Settings")]
+    [SerializeField] private float dropThroughDuration = 0.5f;
+    [SerializeField] private float platformDetectionRadius = 0.6f;
+    
     [Header("Sounds")]
     [SerializeField] private AudioClip jumpSound;
 
     private float _initialGravityScale;
     private float _horizontalMovement;
+    private float _verticalMovement;
     private float _timeSinceLastGroundTouch;
     private float _jumpBufferCounter;
+    private float _dropThroughTimer;
     private bool _canJump;
     private Rigidbody2D _rb;
     private GroundCheck _groundCheck;
-
-  
+    // Propiedades públicas para las plataformas
+    public bool IsDropping => _dropThroughTimer > 0f;
+    public bool IsGrounded => _groundCheck.IsGrounded;
 
     private void Awake()
     {
@@ -50,12 +57,14 @@ public class PlayerMovement : MonoBehaviour
  
         
         MovementInput.OnHorizontalInput += HandleHorizontalMovement;
+        MovementInput.OnVerticalInput += HandleVerticalMovement;
         MovementInput.OnJumpPressed += HandleJumpInput;
     }
 
     private void OnDestroy()
     {
         MovementInput.OnHorizontalInput -= HandleHorizontalMovement; 
+        MovementInput.OnVerticalInput -= HandleVerticalMovement;
         MovementInput.OnJumpPressed -= HandleJumpInput;
     }
 
@@ -64,6 +73,12 @@ public class PlayerMovement : MonoBehaviour
         if (_jumpBufferCounter > 0)
         {
             _jumpBufferCounter -= Time.deltaTime;
+        }
+        
+        // Actualizar timer de drop through
+        if (_dropThroughTimer > 0)
+        {
+            _dropThroughTimer -= Time.deltaTime;
         }
     }
 
@@ -83,9 +98,26 @@ public class PlayerMovement : MonoBehaviour
     {
         _horizontalMovement = movement;
     }
+    
+    private void HandleVerticalMovement(float movement)
+    {
+        _verticalMovement = movement;
+    }
 
     private void HandleJumpInput()
     {
+        // Verificar si es drop through MEJORADO
+        if (_groundCheck.IsGrounded && _verticalMovement < -0.5f)
+        {
+            OneWayPlatform platform = GetCurrentOneWayPlatform();
+            if (platform != null && platform.IsPlayerSupported)
+            {
+                StartDropThrough();
+                return;
+            }
+        }
+        
+        // Lógica de salto normal (sin cambios)
         if (_canJump)
         {
             PerformJump();
@@ -133,5 +165,44 @@ public class PlayerMovement : MonoBehaviour
         _rb.gravityScale = _rb.linearVelocity.y < 0 
             ? _initialGravityScale * fallGravityMultiplier 
             : _initialGravityScale;
+    }
+    
+    // MEJORADO: Detección más precisa de OneWayPlatform
+    private OneWayPlatform GetCurrentOneWayPlatform()
+    {
+        // Buscar en colliders cercanos
+        Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(
+            transform.position, 
+            platformDetectionRadius
+        );
+        
+        foreach (var collider in nearbyColliders)
+        {
+            OneWayPlatform platform = collider.GetComponent<OneWayPlatform>();
+            if (platform != null)
+            {
+                return platform;
+            }
+        }
+        
+        return null;
+    }
+    
+    private void StartDropThrough()
+    {
+        _dropThroughTimer = dropThroughDuration;
+        
+        // Impulso hacia abajo más controlado
+        _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, -3f);
+        
+        Debug.Log("🔽 Drop through iniciado");
+    }
+    
+    // Debug visual
+    private void OnDrawGizmosSelected()
+    {
+        // Mostrar radio de detección de plataformas
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, platformDetectionRadius);
     }
 }
