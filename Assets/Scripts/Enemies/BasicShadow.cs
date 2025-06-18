@@ -20,8 +20,9 @@ public class BasicShadow : EnemyClass
     private Rigidbody2D rb;
     private float lastAttackTime;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         attack = Instantiate(attack,transform);
         rb = GetComponent<Rigidbody2D>();
         attackScript = GetComponentInChildren<HitAttack>();
@@ -33,13 +34,14 @@ public class BasicShadow : EnemyClass
         {
             if (Time.time >= lastAttackTime + attackCooldown && !(DistanciaObjetivo() <= attackDistance))
             {
-
+                VoltearAlJugador();
                 Moverse();
 
 
             }
             if (DistanciaObjetivo() <= attackDistance && Time.time >= lastAttackTime + attackCooldown)
             {
+                VoltearAlJugador();
                 AttackPlayer();
                 lastAttackTime = Time.time;
             }

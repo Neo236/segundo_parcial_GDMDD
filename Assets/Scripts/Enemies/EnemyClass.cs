@@ -18,9 +18,9 @@ public class EnemyClass : MonoBehaviour
     [SerializeField]protected SpriteRenderer sprite;
     protected BoxCollider2D hitbox;
     
-    private void Awake()
+    protected virtual void Awake()
     {
-        
+           
         sprite =GetComponent<SpriteRenderer>();
         detectionMask = LayerMask.GetMask("Ground", "Player");
         player = GameObject.FindWithTag("Player");
@@ -29,7 +29,7 @@ public class EnemyClass : MonoBehaviour
 
     }
     public bool IsDead { get; private set; } = false;
-    void Start()
+    protected virtual void Start()
     {
         _groundCheck = GetComponent<GroundCheck>();
         hitbox = GetComponent<BoxCollider2D>();
@@ -121,16 +121,21 @@ public class EnemyClass : MonoBehaviour
                 {
                     volteadoReal = true;
                 }
-                if ((volteadoReal && transform.localScale.x > 0) || (!volteadoReal && transform.localScale.x < 0))
-                {
-                    Vector3 escala = transform.localScale;
-                    escala.x *= -1;
-                    transform.localScale = escala;
-                }
+               
             }
             return true;
         }
         else {return false;}
+    }
+    protected void VoltearAlJugador()
+    {
+        if ((volteadoReal && transform.localScale.x > 0) || (!volteadoReal && transform.localScale.x < 0))
+        {
+            Vector3 escala = transform.localScale;
+            escala.x *= -1;
+            transform.localScale = escala;
+        }
+
     }
     
     private void Die()
