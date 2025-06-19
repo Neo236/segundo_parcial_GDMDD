@@ -16,6 +16,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sounds")]
     [SerializeField] private AudioClip jumpSound;
 
+    [Header("Animations")]
+
+    private GameObject _playerSprite;
+    private Animator _animator;
+
     private float _initialGravityScale;
     private float _horizontalMovement;
     private float _verticalMovement;
@@ -38,6 +43,12 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _groundCheck = GetComponent<GroundCheck>();
+        _playerSprite = transform.Find("PlayerSprite")?.gameObject;
+        _animator = _playerSprite.GetComponent<Animator>();
+        if (_animator == null)
+        {
+            Debug.LogWarning($"No Animator found on {gameObject.name}. Animations will not play.");
+        }
 
         if (_rb == null)
         {
@@ -92,11 +103,17 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         _rb.linearVelocity = new Vector2(_horizontalMovement * speed, _rb.linearVelocity.y);
+        if (_animator != null)
+    {
+        _animator.SetBool("isWalking", Mathf.Abs(_horizontalMovement) > 0.01f);
+    }
     }
 
     private void HandleHorizontalMovement(float movement)
     {
+        //_animator?.SetBool("isWalking", true);
         _horizontalMovement = movement;
+        
     }
     
     private void HandleVerticalMovement(float movement)

@@ -27,6 +27,10 @@ public class PlayerAttack : MonoBehaviour
 
 
     private Vector2 _lookDirection = Vector2.right;
+
+    [Header("Animations")]
+    private Animator _animator;
+    private GameObject _playerSprite;
     private void Awake()
     {
         InitializeComponents();
@@ -74,6 +78,12 @@ public class PlayerAttack : MonoBehaviour
 
          // Lee el valor de Move para actualizar la dirección de mirada
         Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+        _playerSprite = transform.Find("PlayerSprite")?.gameObject;
+        _animator = _playerSprite?.GetComponent<Animator>();
+        if (_animator == null)
+        {
+            Debug.LogWarning($"No Animator found on {gameObject.name}. Animations will not play.");
+        }
 
         // Prioridad: vertical sobre horizontal
         if (moveInput.y > 0.5f)
@@ -99,12 +109,20 @@ public class PlayerAttack : MonoBehaviour
             }
             return;
         }
-
+        if (_animator != null)
+        {
+            _animator.SetTrigger("Attack");
+        }
         PerformAttack();
     }
 
+    private void TriggerAttack()
+    { 
+        PerformAttack();
+    }
     private void PerformAttack()
     {
+
         _currentCooldownTimer = 0;
         _playerInk.CurrentInk -= _attackSelector.selectedAttack.inkCost;
 

@@ -21,7 +21,26 @@ public class PlayerHealth : MonoBehaviour
     public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
 
-    public void OnEnable()
+
+    [Header("Animations")]
+    private Animator _animator;
+
+
+    private void Awake()
+    {
+        _animator = GetComponentInChildren<Animator>();
+        if (_animator == null)
+        {
+            Debug.LogWarning($"No Animator found on {gameObject.name}. Animations will not play.");
+        }
+    }
+    public void TakeDamage(float damage)
+    {
+        if (_animator != null)
+        {
+            _animator.SetTrigger("GetDamage");
+        }
+   public void OnEnable()
     {
         MenuInput.OnDebugButtonPressedDamage += HandleDebugDamage;
     }
