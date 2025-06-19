@@ -5,7 +5,7 @@ public class EnemyDistance : EnemyClass
 {
    // Distancia mínima para atacar al jugador
   [SerializeField] private GameObject attackPoint; // Punto de ataque del enemigo (opcional)
-    [SerializeField] private Vector3 attackPointPos;
+  [SerializeField] private Vector3 attackPointPos;
   [SerializeField] private GameObject attack; // Prefab o referencia al ataque (opcional)
   [SerializeField] private float attackCooldown = 2f; // Tiempo de espera entre ataques
  
