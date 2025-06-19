@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - SpawnPoint
   - OptionsMenu
+  - ReloadDesk
   layers:
   - Default
   - TransparentFX

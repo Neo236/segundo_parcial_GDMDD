@@ -414,7 +414,19 @@ MonoBehaviour:
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7119899997638164547}
+        m_TargetAssemblyTypeName: PlayerInk, Assembly-CSharp
+        m_MethodName: ReloadUses
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   - m_PersistentCalls:
@@ -573,6 +585,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5bbcc99e-494c-473e-905b-8f70f39b96ee
     m_ActionName: 'OnMenu/ToggleMap[/Keyboard/m]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7119899997638164547}
+        m_TargetAssemblyTypeName: PlayerInk, Assembly-CSharp
+        m_MethodName: RefillInk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2b74bed9-aae6-4f9c-a6ef-71d50ba5d66e
+    m_ActionName: OnGame/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: OnGame
@@ -604,6 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d696175f0f87341a74b4804f6045b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  puedoRecargar: 0
 --- !u!114 &5296551693035957366
 MonoBehaviour:
   m_ObjectHideFlags: 0
