@@ -87,6 +87,9 @@ public class MapSectorVisual : MapContainerData
             case "Zone 2": return new Vector3(2f, -1f, 0f); // A la derecha-arriba de Zone 1
             case "Zone 3": return new Vector3(0f, -2f, 0f); // Abajo de Zone 1
             case "Zone 4": return new Vector3(2f, 0f, 0f); // A la derecha-abajo de Zone 1
+            case "Boss 1" : return new Vector3(5f, 0f, 0f);
+            case "Boss 2" : return new Vector3(5f, -1f, 0f);
+            case "Boss 3" : return new Vector3(1f, -5f, 0f);
             default: return Vector3.zero;
         }
     }

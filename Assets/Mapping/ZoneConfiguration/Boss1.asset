@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88ed8d970dbb334bb3f473e729e46ba, type: 3}
   m_Name: Boss1
   m_EditorClassIdentifier: 
-  zoneNumber: 1
-  zoneName: Zone 1
+  zoneNumber: 10
+  zoneName: Boss 1
   zoneScene:
-    m_SceneAsset: {fileID: 0}
-    m_SceneName: 
+    m_SceneAsset: {fileID: 102900000, guid: 91e2337b8bf8f6541b294141963c4125, type: 3}
+    m_SceneName: Boss1
   gridWidth: 2
-  gridHeight: 2
-  worldMinBounds: {x: -10, y: -10}
-  worldMaxBounds: {x: 10, y: 10}
+  gridHeight: 1
+  worldMinBounds: {x: 0, y: 0}
+  worldMaxBounds: {x: 40, y: 20}
   virtualCameraPrefab: {fileID: 0}
   overrideCameraSettings: 0
   cameraSize: 8
   cameraDamping: 0.5
   deadZoneWidth: 0.1
   deadZoneHeight: 0.1
-  sectorColor: {r: 0, g: 1, b: 1, a: 1}
+  sectorColor: {r: 0.8773585, g: 0.11173906, b: 0.13446137, a: 1}
   unrevealedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   playerIconColor: {r: 1, g: 1, b: 1, a: 1}
   enablePlayerIconBlinking: 1

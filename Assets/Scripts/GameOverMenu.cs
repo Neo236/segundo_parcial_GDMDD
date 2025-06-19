@@ -1,0 +1,71 @@
+// GameOverMenu.cs
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class GameOverMenu : MonoBehaviour
+{
+    [Header("New Game Settings")]
+    [Tooltip("La configuración de la zona donde el jugador reaparecerá al reintentar.")]
+    [SerializeField] private ZoneConfiguration startingZoneConfig;
+    
+    [Header("Audio")]
+    [Tooltip("La música que sonará en la pantalla de Game Over.")]
+    [SerializeField] private AudioClip gameOverMusic;
+    [Tooltip("La música que sonará al empezar el nuevo intento.")]
+    [SerializeField] private AudioClip firstLevelMusic;
+    
+    [SerializeField] private GameObject retryButton;
+
+    private void Start()
+    {
+        // Pone la música de Game Over tan pronto como se carga la escena.
+        if (AudioManager.Instance != null && gameOverMusic != null)
+        {
+            AudioManager.Instance.PlayMusic(gameOverMusic);
+        }
+        
+        EventSystem.current.SetSelectedGameObject(retryButton);
+    }
+
+    /// <summary>
+    /// Esta función se debe conectar al botón "Reintentar" en el Inspector.
+    /// Reinicia el progreso y comienza una nueva partida desde la zona de inicio.
+    /// </summary>
+    public void Retry()
+    {
+        if (startingZoneConfig == null)
+        {
+            Debug.LogError("¡No se ha asignado una ZoneConfiguration de inicio en el GameOverMenu! No se puede reintentar.");
+            return;
+        }
+
+        Debug.Log("Reintentando... volviendo a la zona de inicio.");
+        
+        // 1. Resetea los sistemas de progreso (mapa, etc.)
+        if (MapRoomManager.Instance != null) MapRoomManager.Instance.ResetAllZones();
+        if (GlobalZoneSectorDetector.Instance != null) GlobalZoneSectorDetector.Instance.ResetAllZones();
+        // Aquí podrías añadir más resets si tuvieras, por ejemplo, un EnemyStateManager.
+
+        // 2. Le pide al GameManager que inicie la transición a la primera zona.
+        string sceneToUnload = gameObject.scene.name;
+        GameManager.Instance.TransitionToScene(
+            startingZoneConfig.zoneScene, 
+            null, // Usamos la detección automática de spawn de la zona en lugar de un ID específico
+            sceneToUnload, 
+            firstLevelMusic, 
+            false
+        );
+    }
+
+    /// <summary>
+    /// Esta función se debe conectar al botón "Volver al Menú" en el Inspector.
+    /// Llama a la función centralizada del GameManager.
+    /// </summary>
+    public void GoToMainMenu()
+    {
+        Debug.Log("Volviendo al menú principal desde Game Over...");
+        
+        // Simplemente le decimos al GameManager que se encargue.
+        GameManager.Instance.GoToMainMenu();
+    }
+}

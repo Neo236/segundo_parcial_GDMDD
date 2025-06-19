@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -81,6 +81,15 @@
                     "name": "ReloadInk",
                     "type": "Button",
                     "id": "2b74bed9-aae6-4f9c-a6ef-71d50ba5d66e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugMuerte",
+                    "type": "Button",
+                    "id": "8e7a3c15-b80a-4de0-bff6-93082d43ed72",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -345,10 +354,21 @@
                     "name": "",
                     "id": "d7db9c02-5e0e-409b-bc89-67cb21b20d38",
                     "path": "<Keyboard>/r",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "ReloadInk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "37958b76-7680-4293-88b6-3868bbca1e70",
+                    "path": "<Keyboard>/f8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DebugMuerte",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

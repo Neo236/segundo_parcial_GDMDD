@@ -624,6 +624,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2b74bed9-aae6-4f9c-a6ef-71d50ba5d66e
     m_ActionName: OnGame/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8e7a3c15-b80a-4de0-bff6-93082d43ed72
+    m_ActionName: 'OnGame/DebugMuerte[/Keyboard/f8]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: OnGame
@@ -643,6 +647,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hurtSound: {fileID: 8300000, guid: 272a2f7fc7680e04e8c34ed33e48f6b3, type: 3}
   deathSound: {fileID: 8300000, guid: 3383f8e943a7fd84fa1df9e1c1d47c2e, type: 3}
+  debugDamageAmount: 1000
+  delayBeforeGameOver: 2
 --- !u!114 &7119899997638164547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,6 +662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   puedoRecargar: 0
+  _reloadInkAmount: 3
 --- !u!114 &5296551693035957366
 MonoBehaviour:
   m_ObjectHideFlags: 0
