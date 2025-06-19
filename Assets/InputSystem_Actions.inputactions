@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -72,6 +72,15 @@
                     "name": "ToggleMap",
                     "type": "Button",
                     "id": "001b1679-44e3-4031-99c2-0eac38d02d73",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ReloadInk",
+                    "type": "Button",
+                    "id": "2b74bed9-aae6-4f9c-a6ef-71d50ba5d66e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -329,6 +338,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ToggleMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7db9c02-5e0e-409b-bc89-67cb21b20d38",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadInk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
