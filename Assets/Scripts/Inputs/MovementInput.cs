@@ -10,18 +10,24 @@ public class MovementInput : MonoBehaviour
 
     public void ReadHorizontalInput(InputAction.CallbackContext context)
     {
-        OnHorizontalInput?.Invoke(context.ReadValue<Vector2>().x);
+        if (GameManager.Instance.CurrentGameState == GameState.Gameplay)
+        {
+            OnHorizontalInput?.Invoke(context.ReadValue<Vector2>().x);
+        }
     }
     
     // NUEVO: Leer input vertical
     public void ReadVerticalInput(InputAction.CallbackContext context)
     {
-        OnVerticalInput?.Invoke(context.ReadValue<Vector2>().y);
+        if (GameManager.Instance.CurrentGameState == GameState.Gameplay)
+        {
+            OnVerticalInput?.Invoke(context.ReadValue<Vector2>().y);
+        }
     }
     
     public void ReadJumpInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && GameManager.Instance.CurrentGameState == GameState.Gameplay)
         {
             OnJumpPressed?.Invoke();
         }

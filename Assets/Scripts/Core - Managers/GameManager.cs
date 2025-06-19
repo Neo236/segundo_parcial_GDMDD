@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScreenFader screenFader;
     [SerializeField] private SceneField mainMenuScene;
     [SerializeField] private GameObject mapCanvas;
+    [SerializeField] private SceneField gameOverScene;
+    [SerializeField] private SceneField endScene;
     
     [Header("Camera System")]
     [SerializeField] private GameObject defaultVirtualCameraPrefab; // ✅ NUEVO!
@@ -178,8 +180,14 @@ public class GameManager : MonoBehaviour
         }
 
         yield return StartCoroutine(screenFader.FadeOut());
+                
+        bool isGameplayScene = (
+            sceneToLoad != mainMenuScene.SceneName && 
+            sceneToLoad != gameOverScene.SceneName && 
+            sceneToLoad != endScene.SceneName
+        );
         
-        if (sceneToLoad == "MainMenu")
+        if (!isGameplayScene)
         {
             playerObject.SetActive(false);
         }
@@ -357,8 +365,8 @@ public class GameManager : MonoBehaviour
                 PerformFallbackSpawn();
             }
         }
-
-        SetGameState(sceneToLoad != "MainMenu" ? GameState.Gameplay : GameState.MainMenu);
+        
+        SetGameState(isGameplayScene ? GameState.Gameplay : GameState.MainMenu);
 
         yield return StartCoroutine(screenFader.FadeIn());
         SceneTransition.EndTransition();
@@ -455,5 +463,39 @@ public class GameManager : MonoBehaviour
             playerObject.SetActive(true);
             Debug.Log("🆘 Jugador posicionado en origen (0,0,0)");
         }
+    }
+    public void TriggerGameOver()
+    {
+        // Nos aseguramos de que solo se pueda morir mientras se juega
+        if (CurrentGameState != GameState.Gameplay && CurrentGameState != GameState.Paused) return;
+
+        Debug.Log("GAME OVER - Iniciando transición...");
+        string currentScene = _currentLoadedScene;
+    
+        // Reutilizamos la misma lógica de transición
+        TransitionToScene(
+            gameOverScene,      // <-- Usamos la nueva referencia
+            null,               // Sin spawn point
+            currentScene,
+            null,               // Sin música nueva (la escena se encargará)
+            true                // Detenemos la música del nivel
+        );
+    }
+
+// Este método se llamará al derrotar al jefe final
+    public void TriggerEndScene()
+    {
+        if (CurrentGameState != GameState.Gameplay) return;
+
+        Debug.Log("VICTORIA - Cargando escena final...");
+        string currentScene = _currentLoadedScene;
+
+        TransitionToScene(
+            endScene,           // <-- Usamos la nueva referencia
+            null,
+            currentScene,
+            null,
+            true
+        );
     }
 }
