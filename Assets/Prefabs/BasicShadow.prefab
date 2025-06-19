@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2429630563230529416}
   - component: {fileID: 6172892891041391296}
   - component: {fileID: 3724645532265566293}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: BasicShadow
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ MonoBehaviour:
   distanceToPlayer: 10
   detectionMask:
     serializedVersion: 2
-    m_Bits: 576
+    m_Bits: 64
   sprite: {fileID: 2450760795795553525}
   velocidad: 2
   attackDistance: 4

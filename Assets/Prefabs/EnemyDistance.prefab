@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2429630563230529416}
   - component: {fileID: 3724645532265566293}
   - component: {fileID: 2944518142562138749}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: EnemyDistance
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -204,4 +204,3 @@ MonoBehaviour:
   attackPointPos: {x: 0, y: 0, z: 0}
   attack: {fileID: 2420240510192197575, guid: 4fe9dd07662c1094ba2f492a963df19e, type: 3}
   attackCooldown: 1
-  Player: {fileID: 0}

@@ -6,11 +6,11 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
     public PauseMenu PauseMenuScript { get; private set; }
     public SettingsMenu SettingsMenuScript { get; private set; }
-    
-    //public 
+
+    public bool forPhone = false;
     public GameObject mapCanvas;
     public FullMapController fullMapController;
-    public GameObject inGameinputCanvas;
+    public GameObject onScreenInputs;
     // Puedes añadir más scripts de UI aquí si los necesitas (ej: HUDController)
 
     void Awake()
@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
         if (SettingsMenuScript == null) Debug.LogError("UIManager no pudo encontrar el componente SettingsMenu.");
         
         fullMapController = mapCanvas.GetComponentInChildren<FullMapController>(true);
+
+        onScreenInputs.SetActive(forPhone);
     }
     private void OnEnable()
     {

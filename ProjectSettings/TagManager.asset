@@ -10,21 +10,20 @@ TagManager:
   - MainMenu
   - Environment
   - Enemy
-
   - SpawnPoint
-
+  - OptionsMenu
+  - ReloadDesk
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - Ground
-  - Damageable
   - Enemigos
-  - Map
+  - Damageable
   - Player
+  - Map
   - 
   - 
   - 
