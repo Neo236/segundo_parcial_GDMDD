@@ -10,7 +10,7 @@ public class AttackInput : MonoBehaviour
 
     public void ReadAttackInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && GameManager.Instance.CurrentGameState == GameState.Gameplay)
         {
             OnAttackButtonPressed?.Invoke();
         }
@@ -18,7 +18,7 @@ public class AttackInput : MonoBehaviour
 
     public void ReadSwitchAttackInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && GameManager.Instance.CurrentGameState == GameState.Gameplay)
         {
             OnSwitchAttackButtonPressed?.Invoke();
         }
@@ -26,7 +26,7 @@ public class AttackInput : MonoBehaviour
 
     public void ReadSwitchInkInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && GameManager.Instance.CurrentGameState == GameState.Gameplay)
         {
             OnSwitchInkButtonPressed?.Invoke();
         }

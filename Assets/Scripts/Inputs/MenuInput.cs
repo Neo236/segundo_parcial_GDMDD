@@ -6,6 +6,7 @@ public class MenuInput : MonoBehaviour
 {
     //public static event Action OnPauseButtonPressed;
     public static event Action OnBackButtonPressed;
+    public static event Action OnDebugButtonPressedDamage;
     
     // ¡NUEVOS EVENTOS PARA EL MAPA!
     public static event Action OnOpenMapButtonPressed;
@@ -46,5 +47,13 @@ public class MenuInput : MonoBehaviour
     public void ReadScrollInput(InputAction.CallbackContext context)
     {
         OnMapZoom?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    public void ReadDebugInputTakeDamage(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnDebugButtonPressedDamage?.Invoke();
+        }
     }
 }
