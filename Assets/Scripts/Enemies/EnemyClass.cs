@@ -6,8 +6,8 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class EnemyClass : MonoBehaviour
 {
     protected GroundCheck _groundCheck;
-        [SerializeField] ElementType[] ElementDefense;
-    protected Vector2 jugDireccion; 
+    [SerializeField] ElementType[] ElementDefense;
+    protected Vector2 jugDireccion;
     [SerializeField] ElementType _weakness; // Datos del ataque que el enemigo puede recibir
     [SerializeField] private int health = 100; // Salud del enemigo, puedes ajustarla según sea necesario
     [SerializeField] protected GameObject player;
@@ -15,17 +15,17 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected float distanceToPlayer;
     protected RaycastHit2D vision;
     [SerializeField] protected LayerMask detectionMask;
-    [SerializeField]protected SpriteRenderer sprite;
+    [SerializeField] protected SpriteRenderer sprite;
     protected BoxCollider2D hitbox;
-    
+
     protected virtual void Awake()
     {
-           
-        sprite =GetComponent<SpriteRenderer>();
+
+        sprite = GetComponent<SpriteRenderer>();
         detectionMask = LayerMask.GetMask("Ground", "Player");
         player = GameObject.FindWithTag("Player");
-      hitbox= GetComponent<BoxCollider2D>();
-      
+        hitbox = GetComponent<BoxCollider2D>();
+
 
     }
     public bool IsDead { get; private set; } = false;
@@ -102,30 +102,30 @@ public class EnemyClass : MonoBehaviour
 
     {
         jugDireccion = (player.transform.position - transform.position).normalized;
-      
-        vision = Physics2D.Raycast(transform.position,jugDireccion, distanceToPlayer,detectionMask);
-        
-      
+
+        vision = Physics2D.Raycast(transform.position, jugDireccion, distanceToPlayer, detectionMask);
+
+
         if (vision.collider != false && vision.collider.CompareTag("Player"))
         {
-            if (sprite.flipX==true) 
-            { sprite.flipX = false;}
+            if (sprite.flipX == true)
+            { sprite.flipX = false; }
 
             {
-                if ((vision.collider.transform.position.x-transform.position.x) <= 0)
+                if ((vision.collider.transform.position.x - transform.position.x) <= 0)
                 {
-                     volteadoReal = false;
+                    volteadoReal = false;
 
                 }
                 else
                 {
                     volteadoReal = true;
                 }
-               
+
             }
             return true;
         }
-        else {return false;}
+        else { return false; }
     }
     protected void VoltearAlJugador()
     {
@@ -137,7 +137,7 @@ public class EnemyClass : MonoBehaviour
         }
 
     }
-    
+
     private void Die()
     {
         // Lógica para manejar la muerte del enemigo
