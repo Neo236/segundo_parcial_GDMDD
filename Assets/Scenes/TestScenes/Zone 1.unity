@@ -19520,15 +19520,15 @@ PrefabInstance:
     - target: {fileID: 4512126659498571859, guid: a9c346c3b5fc12049822ab574ccbbe68, type: 3}
       propertyPath: targetSpawnPointID
       value: 
-      objectReference: {fileID: 11400000, guid: 5d767d90a96ce8d4294a9c3d7029b506, type: 2}
+      objectReference: {fileID: 11400000, guid: 4838ea36c95678f4fa913f44dc41b9f3, type: 2}
     - target: {fileID: 4512126659498571859, guid: a9c346c3b5fc12049822ab574ccbbe68, type: 3}
       propertyPath: sceneToLoad.m_SceneName
-      value: Zone 3
+      value: Boss3
       objectReference: {fileID: 0}
     - target: {fileID: 4512126659498571859, guid: a9c346c3b5fc12049822ab574ccbbe68, type: 3}
       propertyPath: sceneToLoad.m_SceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: 97bb8e71157432f42b6a94d8b724f1d7, type: 3}
+      objectReference: {fileID: 102900000, guid: e4ec2364f2b41e845982d045fa8fabc9, type: 3}
     - target: {fileID: 4658224515341181495, guid: a9c346c3b5fc12049822ab574ccbbe68, type: 3}
       propertyPath: m_Enabled
       value: 1
