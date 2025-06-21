@@ -30,7 +30,7 @@ public class BasicShadow : EnemyClass
     }
     private void Update()
     {
-        if (player != null && DetectarJugador())
+        if (DetectarJugador())
         {
             if (Time.time >= lastAttackTime + attackCooldown && !(DistanciaObjetivo() <= attackDistance))
             {
@@ -42,7 +42,7 @@ public class BasicShadow : EnemyClass
             if (DistanciaObjetivo() <= attackDistance && Time.time >= lastAttackTime + attackCooldown)
             {
                 VoltearAlJugador();
-                AttackPlayer();
+                EmpezarAtaque();
                 lastAttackTime = Time.time;
             }
         }
@@ -50,10 +50,16 @@ public class BasicShadow : EnemyClass
     private void Moverse()
     {
         jugDireccion.y = 0;
-        if (_groundCheck.indivGrounded[2] && volteadoReal || _groundCheck.indivGrounded[0] && !volteadoReal) 
+        if (_groundCheck.indivGrounded[2] && volteadoReal || _groundCheck.indivGrounded[0] && !volteadoReal)
         {
             rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * jugDireccion);
+            animator.SetBool("Moviendose", true);
+            Debug.Log("MOVIENDOSE");
+
         }
+        else { 
+        animator.SetBool("Moviendose", false);
+    }
        
     }
     private float DistanciaObjetivo()
@@ -61,9 +67,9 @@ public class BasicShadow : EnemyClass
         float distance = Vector3.Distance(transform.position, player.transform.position);
         return distance;
     }
-    private void AttackPlayer()
+     override  public void AttackPlayer()
     {
-
+        
 
         if (attackScript != null && attackScript != null && player != null)
         {

@@ -29,7 +29,6 @@ public class EnemyDistance : EnemyClass
 
   void Update()
   {
-    if (player == null) return;
 
  
 
@@ -41,7 +40,7 @@ public class EnemyDistance : EnemyClass
     }
   }
 
-  protected void AttackPlayer()
+  public override void AttackPlayer()
   {
 
 

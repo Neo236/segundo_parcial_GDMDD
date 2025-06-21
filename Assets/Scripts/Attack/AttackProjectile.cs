@@ -53,7 +53,7 @@ public class AttackProjectile : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
-            enemy = collision.gameObject.GetComponent<EnemyDistance>();
+            enemy = collision.gameObject.GetComponent<EnemyClass>();
 
 
             if (enemy == null)

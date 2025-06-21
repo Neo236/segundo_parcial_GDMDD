@@ -176,8 +176,8 @@ TextureImporter:
         y: 72
         width: 35
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.51146954, y: 0.4958183}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -199,7 +199,7 @@ TextureImporter:
         width: 59
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -213,28 +213,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpriteSheetEnemigoMelee_2
-      rect:
-        serializedVersion: 2
-        x: 70
-        y: 87
-        width: 12
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d04a82ebde38af380800000000000000
-      internalID: -8936685453442505715
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: SpriteSheetEnemigoMelee_3
       rect:
         serializedVersion: 2
@@ -243,7 +221,7 @@ TextureImporter:
         width: 35
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -265,7 +243,7 @@ TextureImporter:
         width: 42
         height: 51
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -285,9 +263,9 @@ TextureImporter:
         x: 268
         y: 82
         width: 46
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 24
+      alignment: 9
+      pivot: {x: 0.49277264, y: 0.22297573}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -308,8 +286,8 @@ TextureImporter:
         y: 8
         width: 35
         height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.55734795, y: 0.5089208}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -330,8 +308,8 @@ TextureImporter:
         y: 9
         width: 33
         height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5457276, y: 0.5085137}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -352,8 +330,8 @@ TextureImporter:
         y: 9
         width: 43
         height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.6260323, y: 0.5042706}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -374,8 +352,8 @@ TextureImporter:
         y: 8
         width: 37
         height: 49
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5205746, y: 0.42187107}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -396,8 +374,8 @@ TextureImporter:
         y: 17
         width: 47
         height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.48845008, y: 0.24609369}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -414,7 +392,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e2a6ba2208554be4a95cbd8d1fe6b234
     internalID: 0
     vertices: []
     indices: 

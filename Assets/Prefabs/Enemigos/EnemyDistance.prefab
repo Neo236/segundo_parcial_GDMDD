@@ -202,5 +202,5 @@ MonoBehaviour:
   sprite: {fileID: 6831210133208145331, guid: cf48e4cfd727c384ea1d74c093ff4834, type: 3}
   attackPoint: {fileID: 3226875841972524626, guid: cf48e4cfd727c384ea1d74c093ff4834, type: 3}
   attackPointPos: {x: 0, y: 0, z: 0}
-  attack: {fileID: 2420240510192197575, guid: 4fe9dd07662c1094ba2f492a963df19e, type: 3}
+  attack: {fileID: 2420240510192197575, guid: 0781930f47650c247abfd0d4408c6092, type: 3}
   attackCooldown: 1
