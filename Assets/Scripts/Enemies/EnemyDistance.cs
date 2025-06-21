@@ -13,7 +13,7 @@ public class EnemyDistance : EnemyClass
  
 
   private float lastAttackTime;
-    protected override void Awake()
+    protected  override void Awake()
     {
         base.Awake();
         attackPoint = new GameObject("AttackSpawner");

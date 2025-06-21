@@ -48,11 +48,9 @@ public class EnemyClass : MonoBehaviour
 
     }
 
-    public void TakeDamage(AttackData attackData)
+    public virtual void TakeDamage(AttackData attackData)
     {
-        // Implementar lógica de daño al enemigo
-        // Por ejemplo, reducir la salud del enemigo según el ataque recibido
-        // y aplicar efectos visuales o de sonido si es necesario.
+      
         int damage;
 
         // Aquí podrías verificar el tipo de elemento del ataque y compararlo con la defensa del enemigo.
@@ -81,6 +79,7 @@ public class EnemyClass : MonoBehaviour
        
 
         }
+
     }
     
 
