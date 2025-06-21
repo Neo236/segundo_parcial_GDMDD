@@ -30,7 +30,8 @@ public class ReloadDesk : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerIsOnTop = false;
-           player.GetComponent<PlayerInk>().puedoRecargar = false;
+            player.GetComponent<PlayerInk>().puedoRecargar = false;
+            player.GetComponent<PlayerHealth>().ResetHealth();
             player = null;
         }
     }
