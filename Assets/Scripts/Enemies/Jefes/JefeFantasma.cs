@@ -13,13 +13,16 @@ public class JefeFantasma :EnemyDistance
     }
     public override void TakeDamage(AttackData attackData)
     {
+        Debug.Log("Tomo daño Jefe");
         base.TakeDamage(attackData);
         if (dañoCont == ataqueLocacion.Length)
         {
             dañoCont = 0;
         
         }
-        transform.position = ataqueLocacion[dañoCont].position;
+        transform.position = ataqueLocacion[dañoCont].localPosition;
+        dañoCont++;
+        Debug.Log("Teleportado");
     }
 
 
