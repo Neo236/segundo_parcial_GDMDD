@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
@@ -17,25 +18,27 @@ public class EnemyClass : MonoBehaviour
     [SerializeField] protected LayerMask detectionMask;
     [SerializeField] protected SpriteRenderer sprite;
     protected BoxCollider2D hitbox;
+    protected Animator animator;
 
     protected virtual void Awake()
     {
 
         sprite = GetComponent<SpriteRenderer>();
         detectionMask = LayerMask.GetMask("Ground", "Player");
+
         player = GameObject.FindWithTag("Player");
         hitbox = GetComponent<BoxCollider2D>();
-
+        animator = GetComponent<Animator>();
 
     }
+   
     public bool IsDead { get; private set; } = false;
     protected virtual void Start()
     {
         _groundCheck = GetComponent<GroundCheck>();
         hitbox = GetComponent<BoxCollider2D>();
         _groundCheck.AdaptRaycastToHitbox(hitbox);
-
-
+      
 
     }
 
@@ -45,11 +48,9 @@ public class EnemyClass : MonoBehaviour
 
     }
 
-    public void TakeDamage(AttackData attackData)
+    public virtual void TakeDamage(AttackData attackData)
     {
-        // Implementar lógica de daño al enemigo
-        // Por ejemplo, reducir la salud del enemigo según el ataque recibido
-        // y aplicar efectos visuales o de sonido si es necesario.
+      
         int damage;
 
         // Aquí podrías verificar el tipo de elemento del ataque y compararlo con la defensa del enemigo.
@@ -71,11 +72,16 @@ public class EnemyClass : MonoBehaviour
         }
         Debug.Log($"Enemy takes {damage} damage from {attackData.elementType} attack.");
         health -= damage; // Reducir la salud del enemigo
+        animator.SetBool("Hurt",true);
         if (health <= 0)
         {
-            Die(); // Lógica para manejar la muerte del enemigo
+            animator.SetBool("Death", true);
+       
+
         }
+
     }
+    
 
 
     private bool IsWeakAgainst(ElementType attackElement)
@@ -101,6 +107,10 @@ public class EnemyClass : MonoBehaviour
     protected virtual bool DetectarJugador()
 
     {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
         jugDireccion = (player.transform.position - transform.position).normalized;
 
         vision = Physics2D.Raycast(transform.position, jugDireccion, distanceToPlayer, detectionMask);
@@ -138,12 +148,24 @@ public class EnemyClass : MonoBehaviour
 
     }
 
-    private void Die()
+    public void Die()
     {
         // Lógica para manejar la muerte del enemigo
         // Por ejemplo, podrías reproducir una animación de muerte, soltar objetos, etc.
         Debug.Log("Enemy has died.");
         IsDead = true; // Marcar al enemigo como muerto
         Destroy(gameObject); // Destruye el objeto del enemigo
+    }
+    protected virtual void  EmpezarAtaque()
+    {
+        animator.SetBool("Attack", true);
+    
+    
+    }
+    virtual public void AttackPlayer()
+    {
+        Debug.Log("atacando");
+
+       
     }
 }

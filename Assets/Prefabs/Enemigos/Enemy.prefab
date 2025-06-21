@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2429630563230529416}
   - component: {fileID: 151938781411185884}
   - component: {fileID: 7808682578874636904}
-  - component: {fileID: 4381259490765914140}
+  - component: {fileID: -2941483006633248896}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -150,8 +150,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 50
+  m_LinearDamping: 100
   m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -160,11 +160,11 @@ Rigidbody2D:
     m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &151938781411185884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +201,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4381259490765914140
+--- !u!114 &-2941483006633248896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,19 +210,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 3149998462649935647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076b07635f91c90438e7bfcac3265aa2, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f69c3cbb2b903446baad3ec87c85b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ElementDefense: 
   _weakness: 0
-  health: 100
+  health: 150
   player: {fileID: 0}
   volteadoReal: 0
-  distanceToPlayer: 0
+  distanceToPlayer: 500
   detectionMask:
     serializedVersion: 2
-    m_Bits: 0
-  sprite: {fileID: 0}
-  distanceToPlayer: 100
-  player: {fileID: 0}
-  velocidad: 0
+    m_Bits: 64
+  sprite: {fileID: 2450760795795553525, guid: b1201cc90f1b244419658d4338ad2951, type: 3}
+  velocidad: 2
+  attackDistance: 4
+  attackCooldown: 2
+  attack: {fileID: 2420240510192197575, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
+  attackScript: {fileID: 3820057326609959999, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
+  attackPoint: {fileID: 0}
+  attackPosition: {x: -1.8779, y: -0.1665, z: 0}
+  scaleAttack: {x: 0, y: 0, z: 0}

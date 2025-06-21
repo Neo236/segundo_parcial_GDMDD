@@ -14,6 +14,7 @@ public class EnemyAttack : MonoBehaviour
         direccion = (player.position - transform.position).normalized;
         Destroy(gameObject, lifetime); // Destruye el proyectil luego de un tiempo
     }
+   
 
     void Update()
     {

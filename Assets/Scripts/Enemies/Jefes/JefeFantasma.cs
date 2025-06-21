@@ -2,30 +2,27 @@ using UnityEngine;
 
 public class JefeFantasma :EnemyDistance
 {
-    private int cantAtaques=3;
+    [SerializeField] Transform[] ataqueLocacion;
+    private int dañoCont=0; 
 
-
-
-
-    new protected void AttackPlayer()
+    protected override void Awake()
     {
-
-
-        if (attack != null && attackPoint != null && player != null)
-        {
-            GameObject[] Proyectiles=new GameObject[cantAtaques];
+    
+    base.Awake();
         
-            for (global::System.Int32 i = 0; i < cantAtaques; i++)
-            {
-                EnemyAttack enemyAttack = Proyectiles[i].GetComponent<EnemyAttack>();
-                if (enemyAttack != null)
-                {
-                    Proyectiles[i] = Instantiate(attack, attackPoint.transform.position, Quaternion.identity);
-                 
-                    enemyAttack.SetTarget(player.transform);
-                }
-            }
-           
-        }
     }
+    public override void TakeDamage(AttackData attackData)
+    {
+        base.TakeDamage(attackData);
+        if (dañoCont == ataqueLocacion.Length)
+        {
+            dañoCont = 0;
+        
+        }
+        transform.position = ataqueLocacion[dañoCont].position;
+    }
+
+
+
 }
+
