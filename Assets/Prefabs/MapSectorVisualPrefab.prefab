@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3298843577281601645}
   - component: {fileID: 6143019435984153731}
   - component: {fileID: 5851642487025354261}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: MapSectorVisualPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8965615362148120669}
   - component: {fileID: 8318453501909494497}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: PlayerIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

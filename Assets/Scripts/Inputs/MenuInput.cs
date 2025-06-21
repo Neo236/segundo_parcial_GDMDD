@@ -7,6 +7,7 @@ public class MenuInput : MonoBehaviour
     //public static event Action OnPauseButtonPressed;
     public static event Action OnBackButtonPressed;
     public static event Action OnDebugButtonPressedDamage;
+    public static event Action OnDebugButtonPressedVictory;
     
     // ¡NUEVOS EVENTOS PARA EL MAPA!
     public static event Action OnOpenMapButtonPressed;
@@ -54,6 +55,13 @@ public class MenuInput : MonoBehaviour
         if (context.performed)
         {
             OnDebugButtonPressedDamage?.Invoke();
+        }
+    }
+    public void ReadDebugInputVictory(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnDebugButtonPressedVictory?.Invoke();
         }
     }
 }

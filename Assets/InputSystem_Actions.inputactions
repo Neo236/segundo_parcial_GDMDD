@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DebugVictory",
+                    "type": "Button",
+                    "id": "00a58206-a1ef-4581-9010-92373f975511",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -369,6 +378,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "DebugMuerte",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb4256d6-94aa-424e-bedb-eb17a86c0325",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DebugVictory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

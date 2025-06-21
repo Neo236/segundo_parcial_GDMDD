@@ -21,38 +21,31 @@ public class PlayerAttack : MonoBehaviour
     private AttackSelector _attackSelector;
     private InkSelector _inkSelector;
 
-    private PlayerInput _playerInput;
-    private InputAction _moveAction;
-    private InputAction _attackAction;
-
-
-    private Vector2 _lookDirection = Vector2.right;
+    //private PlayerInput _playerInput;
+    //private InputAction _moveAction;
+    //private InputAction _attackAction;
+    
+    private PlayerMovement _playerMovement; 
+    
     private void Awake()
     {
         InitializeComponents();
-        _playerInput = GetComponent<PlayerInput>();
-        var actionMap = _playerInput.actions.FindActionMap("OnGame");
-        _moveAction = actionMap.FindAction("Move");
-        _attackAction = actionMap.FindAction("Attack");
+        //_playerInput = GetComponent<PlayerInput>();
+        //var actionMap = _playerInput.actions.FindActionMap("OnGame");
+        //_moveAction = actionMap.FindAction("Move");
+        //_attackAction = actionMap.FindAction("Attack");
 
-        _attackAction.performed += ctx => HandleAttack();
-    }
-
-    private void OnDestroy()
-    {
-        AttackInput.OnAttackButtonPressed -= HandleAttack;
+        //_attackAction.performed += ctx => HandleAttack();
     }
 
      private void OnEnable()
-    {
-        _moveAction.Enable();
-        _attackAction.Enable();
-    }
+     {
+         AttackInput.OnAttackButtonPressed += HandleAttack;
+     }
 
     private void OnDisable()
     {
-        _moveAction.Disable();
-        _attackAction.Disable();
+        AttackInput.OnAttackButtonPressed -= HandleAttack;
     }
 
     private void InitializeComponents()
@@ -60,8 +53,9 @@ public class PlayerAttack : MonoBehaviour
         _playerInk = GetComponent<PlayerInk>();
         _attackSelector = GetComponent<AttackSelector>();
         _inkSelector = GetComponent<InkSelector>();
+        _playerMovement = GetComponent<PlayerMovement>();
 
-        if (_playerInk == null || _attackSelector == null || _inkSelector == null)
+        if (_playerInk == null || _attackSelector == null || _inkSelector == null || _playerMovement == null)
         {
             Debug.LogError($"Missing required components on {gameObject.name}");
             enabled = false;
@@ -71,19 +65,6 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         _currentCooldownTimer += Time.deltaTime;
-
-         // Lee el valor de Move para actualizar la dirección de mirada
-        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
-
-        // Prioridad: vertical sobre horizontal
-        if (moveInput.y > 0.5f)
-            _lookDirection = Vector2.up;
-        else if (moveInput.y < -0.5f)
-            _lookDirection = Vector2.down;
-        else if (moveInput.x > 0.5f)
-            _lookDirection = Vector2.right;
-        else if (moveInput.x < -0.5f)
-            _lookDirection = Vector2.left;
     }
 
     private void HandleAttack()
@@ -118,17 +99,19 @@ public class PlayerAttack : MonoBehaviour
         Transform spawner;
         Vector3 direction;
 
-        if (_lookDirection == Vector2.right)
+        Vector2 lookDirection = _playerMovement.LookDirection;
+
+        if (lookDirection == Vector2.right)
         {
             spawner = attackSpawnerRight;
             direction = Vector3.right;
         }
-        else if (_lookDirection == Vector2.left)
+        else if (lookDirection == Vector2.left)
         {
             spawner = attackSpawnerLeft;
             direction = Vector3.left;
         }
-        else if (_lookDirection == Vector2.up)
+        else if (lookDirection == Vector2.up)
         {
             spawner = attackSpawnerUp;
             direction = Vector3.up;
@@ -144,7 +127,6 @@ public class PlayerAttack : MonoBehaviour
 
         LogAttackDetails();
     }
-
     private void LogAttackDetails()
     {
         Debug.Log($"Selected Attack: {_attackSelector.selectedAttack.name} " +

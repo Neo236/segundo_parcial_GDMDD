@@ -10,7 +10,7 @@ public class StairTile : MonoBehaviour
     private GameObject _player;
     private Rigidbody2D _playerRigidbody;
     private bool _isPlayerOnTile;
-    private float _verticalMovement;
+    private float _verticalInput;
 
     private void Start()
     {
@@ -26,12 +26,18 @@ public class StairTile : MonoBehaviour
         _playerRigidbody = _player.GetComponent<Rigidbody2D>();
         
         // ✅ CORREGIDO: Quitar el punto y coma extra
-        MovementInput.OnVerticalInput += HandleVerticalMovement;
+        MovementInput.OnMoveInput += HandleMoveInput;
     }
 
     private void OnDisable()
     {
-        MovementInput.OnVerticalInput -= HandleVerticalMovement;
+        MovementInput.OnMoveInput -= HandleMoveInput;
+    }
+    
+    private void HandleMoveInput(Vector2 moveInput)
+    {
+        // Guardamos solo el componente vertical, que es el que nos interesa.
+        _verticalInput = moveInput.y;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -52,13 +58,13 @@ public class StairTile : MonoBehaviour
 
     private void HandleVerticalMovement(float movement)
     {
-        _verticalMovement = movement;
+        _verticalInput = movement;
     }
     
     // ✅ CORREGIDO: Quitar parámetro innecesario
     private void ClimbStair()
     {
-        if (_verticalMovement > 0 && _isPlayerOnTile && _player != null)
+        if (_verticalInput > 0 && _isPlayerOnTile && _player != null)
         {
             // Método preferido: Usar Rigidbody2D si está disponible
             if (_playerRigidbody != null)

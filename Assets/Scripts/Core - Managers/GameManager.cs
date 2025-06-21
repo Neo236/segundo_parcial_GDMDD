@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Cinemachine; // ✅ CORRECTO para Cinemachine v3
 
-public enum GameState { MainMenu, Gameplay, Paused}
+public enum GameState { MainMenu, Gameplay, Paused, PlayerDead}
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     public void TogglePause()
     {
-        if (CurrentGameState != GameState.Gameplay && CurrentGameState != GameState.Paused) return;
+        if (CurrentGameState != GameState.Gameplay && CurrentGameState != GameState.Paused ) return;
         if (CurrentGameState == GameState.Gameplay)
         {
             UIManager.Instance.PauseMenuScript.Pause();
@@ -145,6 +145,17 @@ public class GameManager : MonoBehaviour
             
             case GameState.Paused:
                 Time.timeScale = 0f;
+                break;
+            
+            case GameState.PlayerDead:
+                // El jugador está muerto.
+                // Los inputs se desactivarán, pero el tiempo sigue corriendo.
+                Time.timeScale = 1f;
+                // Opcional: Podrías querer ocultar el HUD aquí
+                if (inGameCanvas.transform.Find("HUD") != null)
+                {
+                    inGameCanvas.transform.Find("HUD").gameObject.SetActive(false);
+                }
                 break;
         }
     }
@@ -467,7 +478,7 @@ public class GameManager : MonoBehaviour
     public void TriggerGameOver()
     {
         // Nos aseguramos de que solo se pueda morir mientras se juega
-        if (CurrentGameState != GameState.Gameplay && CurrentGameState != GameState.Paused) return;
+        if (CurrentGameState == GameState.MainMenu) return;
 
         Debug.Log("GAME OVER - Iniciando transición...");
         string currentScene = _currentLoadedScene;

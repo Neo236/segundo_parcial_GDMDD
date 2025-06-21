@@ -4,32 +4,36 @@ using System;
 
 public class MovementInput : MonoBehaviour
 {
-    public static event Action<float> OnHorizontalInput;
-    public static event Action<float> OnVerticalInput; // NUEVO
+    public static event Action<Vector2> OnMoveInput;
     public static event Action OnJumpPressed;
+    public static event Action OnJumpReleased; // ¡NUEVO EVENTO!
 
-    public void ReadHorizontalInput(InputAction.CallbackContext context)
+    public void ReadMoveInput(InputAction.CallbackContext context)
     {
         if (GameManager.Instance.CurrentGameState == GameState.Gameplay)
         {
-            OnHorizontalInput?.Invoke(context.ReadValue<Vector2>().x);
+            // Leemos el Vector2 completo y lo emitimos.
+            OnMoveInput?.Invoke(context.ReadValue<Vector2>());
         }
-    }
-    
-    // NUEVO: Leer input vertical
-    public void ReadVerticalInput(InputAction.CallbackContext context)
-    {
-        if (GameManager.Instance.CurrentGameState == GameState.Gameplay)
+        else
         {
-            OnVerticalInput?.Invoke(context.ReadValue<Vector2>().y);
+            // Si no estamos jugando, aseguramos enviar un vector cero para detener el movimiento.
+            OnMoveInput?.Invoke(Vector2.zero);
         }
     }
     
     public void ReadJumpInput(InputAction.CallbackContext context)
     {
-        if (context.performed && GameManager.Instance.CurrentGameState == GameState.Gameplay)
+        // Si no estamos jugando, no hacemos nada.
+        if (GameManager.Instance.CurrentGameState != GameState.Gameplay) return;
+        
+        if (context.performed) // Se ejecuta cuando se presiona el botón
         {
             OnJumpPressed?.Invoke();
+        }
+        else if (context.canceled) // Se ejecuta cuando se suelta el botón
+        {
+            OnJumpReleased?.Invoke();
         }
     }
 }
