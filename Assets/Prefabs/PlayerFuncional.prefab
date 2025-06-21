@@ -522,9 +522,9 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5296551693035957366}
-        m_TargetAssemblyTypeName: InkSelector, Assembly-CSharp
-        m_MethodName: SelectNextInk
+      - m_Target: {fileID: 2724998959003486096}
+        m_TargetAssemblyTypeName: AttackSelector, Assembly-CSharp
+        m_MethodName: SelectNextAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -663,6 +663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puedoRecargar: 0
   _reloadInkAmount: 3
+  reloadCooldown: 1
 --- !u!114 &5296551693035957366
 MonoBehaviour:
   m_ObjectHideFlags: 0

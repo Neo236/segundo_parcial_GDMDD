@@ -34,7 +34,9 @@ public class PlayerHealth : MonoBehaviour
             Debug.LogWarning($"No Animator found on {gameObject.name}. Animations will not play.");
         }
     }
+
    
+
    public void OnEnable()
     {
         MenuInput.OnDebugButtonPressedDamage += HandleDebugDamage;
@@ -52,6 +54,10 @@ public class PlayerHealth : MonoBehaviour
             _animator.SetTrigger("GetDamage");
         }
         if (_isDead) return;
+        if (_animator != null)
+        {
+            _animator.SetTrigger("GetDamage");
+        }
         AudioManager.Instance.PlaySfx(hurtSound);
         _currentHealth = CurrentHealth - damage;
         if (CurrentHealth <= 0)
