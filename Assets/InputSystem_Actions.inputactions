@@ -83,7 +83,7 @@
                     "id": "2b74bed9-aae6-4f9c-a6ef-71d50ba5d66e",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 },
                 {
@@ -363,7 +363,7 @@
                     "name": "",
                     "id": "d7db9c02-5e0e-409b-bc89-67cb21b20d38",
                     "path": "<Keyboard>/r",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "",
                     "action": "ReloadInk",

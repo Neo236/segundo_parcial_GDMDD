@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackProjectile : MonoBehaviour
@@ -10,6 +11,8 @@ public class AttackProjectile : MonoBehaviour
     private Vector3 moveDirection;
     private AttackData attackData;
     private SpriteRenderer spriteRenderer;
+
+    private GameObject spriteHolder; // Reference to the GameObject that holds the sprite
     private CircleCollider2D circleCollider;
 
     private EnemyClass enemy; // Reference to the enemy that fired this projectile
@@ -17,7 +20,13 @@ public class AttackProjectile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteHolder = transform.Find("SpriteHolder")?.gameObject;
+        if(spriteHolder != null)
+        {
+            Debug.Log("SpriteHolder found in the scene.");
+            spriteRenderer = spriteHolder.GetComponent<SpriteRenderer>();
+        }
+       
         circleCollider = GetComponent<CircleCollider2D>();
 
         // Configure the collider as trigger
@@ -35,11 +44,13 @@ public class AttackProjectile : MonoBehaviour
        
         rb.linearVelocity = moveDirection * speed;
         
-        if(spriteRenderer != null)
+         // Cambia el sprite aquí
+        if (spriteRenderer != null && attackData != null && attackData.attackIcon != null)
         {
-            ChangeColorBasedOnElementType();
+            spriteRenderer.sprite = attackData.attackIcon;
         }
-        
+
+        ChangeColorBasedOnElementType();
         // Set the projectile's layer to avoid friendly fire
         gameObject.layer = LayerMask.NameToLayer("Damageable");
         
@@ -53,7 +64,7 @@ public class AttackProjectile : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy")
         {
-            enemy = collision.gameObject.GetComponent<EnemyDistance>();
+            enemy = collision.gameObject.GetComponent<EnemyClass>();
 
 
             if (enemy == null)

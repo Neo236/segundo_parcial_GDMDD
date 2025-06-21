@@ -33,7 +33,7 @@ public class EnemyFollow:EnemyClass
     }
     private float DistanciaObjetivo()
     {
-         float distance = Vector3.Distance(transform.position, player.transform.position);
+        float distance = Vector3.Distance(transform.position, player.transform.position);
         return distance;
     }
 

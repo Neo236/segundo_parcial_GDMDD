@@ -1,0 +1,420 @@
+fileFormatVersion: 2
+guid: ca14dab33e989e14abc692618a23f972
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4011262884470513169
+    second: SpriteSheetEnemigoMelee_0
+  - first:
+      213: -4333172195328110543
+    second: SpriteSheetEnemigoMelee_1
+  - first:
+      213: -8936685453442505715
+    second: SpriteSheetEnemigoMelee_2
+  - first:
+      213: -6713856694525736935
+    second: SpriteSheetEnemigoMelee_3
+  - first:
+      213: -1310481637096795241
+    second: SpriteSheetEnemigoMelee_4
+  - first:
+      213: -7731286835977607900
+    second: SpriteSheetEnemigoMelee_5
+  - first:
+      213: -4712401117192947157
+    second: SpriteSheetEnemigoMelee_6
+  - first:
+      213: -6898939971948175471
+    second: SpriteSheetEnemigoMelee_7
+  - first:
+      213: 8733863134376248770
+    second: SpriteSheetEnemigoMelee_8
+  - first:
+      213: 3362146395101793860
+    second: SpriteSheetEnemigoMelee_9
+  - first:
+      213: -971033626347239904
+    second: SpriteSheetEnemigoMelee_10
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 72
+        width: 35
+        height: 48
+      alignment: 9
+      pivot: {x: 0.51146954, y: 0.4958183}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe12d6eb8a12558c0800000000000000
+      internalID: -4011262884470513169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_1
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 72
+        width: 59
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1305ed2b8da7dd3c0800000000000000
+      internalID: -4333172195328110543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_3
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 72
+        width: 35
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9184ae968e693d2a0800000000000000
+      internalID: -6713856694525736935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_4
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 72
+        width: 42
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7935c20f4eb30dde0800000000000000
+      internalID: -1310481637096795241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_5
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 82
+        width: 46
+        height: 24
+      alignment: 9
+      pivot: {x: 0.49277264, y: 0.22297573}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 425a6e4b593f4b490800000000000000
+      internalID: -7731286835977607900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_6
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 8
+        width: 35
+        height: 45
+      alignment: 9
+      pivot: {x: 0.55734795, y: 0.5089208}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2a7f8ab6203a9eb0800000000000000
+      internalID: -4712401117192947157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_7
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 9
+        width: 33
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5457276, y: 0.5085137}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19f194dc5aa0240a0800000000000000
+      internalID: -6898939971948175471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_8
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 9
+        width: 43
+        height: 47
+      alignment: 9
+      pivot: {x: 0.6260323, y: 0.5042706}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c540692f3ae43970800000000000000
+      internalID: 8733863134376248770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_9
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 8
+        width: 37
+        height: 49
+      alignment: 9
+      pivot: {x: 0.5205746, y: 0.42187107}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44e07ea355eb8ae20800000000000000
+      internalID: 3362146395101793860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteSheetEnemigoMelee_10
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 17
+        width: 47
+        height: 31
+      alignment: 9
+      pivot: {x: 0.48845008, y: 0.24609369}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0260d94cf023682f0800000000000000
+      internalID: -971033626347239904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e2a6ba2208554be4a95cbd8d1fe6b234
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SpriteSheetEnemigoMelee_0: -4011262884470513169
+      SpriteSheetEnemigoMelee_1: -4333172195328110543
+      SpriteSheetEnemigoMelee_10: -971033626347239904
+      SpriteSheetEnemigoMelee_2: -8936685453442505715
+      SpriteSheetEnemigoMelee_3: -6713856694525736935
+      SpriteSheetEnemigoMelee_4: -1310481637096795241
+      SpriteSheetEnemigoMelee_5: -7731286835977607900
+      SpriteSheetEnemigoMelee_6: -4712401117192947157
+      SpriteSheetEnemigoMelee_7: -6898939971948175471
+      SpriteSheetEnemigoMelee_8: 8733863134376248770
+      SpriteSheetEnemigoMelee_9: 3362146395101793860
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
