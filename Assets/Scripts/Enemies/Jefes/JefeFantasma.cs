@@ -3,7 +3,7 @@ using UnityEngine;
 public class JefeFantasma :EnemyDistance
 {
     [SerializeField] Transform[] ataqueLocacion;
-    private int dañoCont=0; 
+    private int danoCont=0; 
 
     protected override void Awake()
     {
@@ -15,13 +15,13 @@ public class JefeFantasma :EnemyDistance
     {
         Debug.Log("Tomo daño Jefe");
         base.TakeDamage(attackData);
-        if (dañoCont == ataqueLocacion.Length)
+        if (danoCont == ataqueLocacion.Length)
         {
-            dañoCont = 0;
+            danoCont = 0;
         
         }
-        transform.position = ataqueLocacion[dañoCont].localPosition;
-        dañoCont++;
+        transform.position = ataqueLocacion[danoCont].localPosition;
+        danoCont++;
         Debug.Log("Teleportado");
     }
 
