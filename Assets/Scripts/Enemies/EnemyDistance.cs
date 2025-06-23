@@ -35,7 +35,7 @@ public class EnemyDistance : EnemyClass
     if ( !IsDead&& DetectarJugador() && Time.time >= lastAttackTime + attackCooldown )
     {
             VoltearAlJugador();
-            animator.SetBool("Attack",true);
+            EmpezarAtaque();
      
       lastAttackTime = Time.time;
     }
