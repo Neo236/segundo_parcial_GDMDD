@@ -43,6 +43,8 @@ public class EndSceneMenu : MonoBehaviour
         
         if (MapRoomManager.Instance != null) MapRoomManager.Instance.ResetAllZones();
         if (GlobalZoneSectorDetector.Instance != null) GlobalZoneSectorDetector.Instance.ResetAllZones();
+        
+        GameManager.Instance.ResetPlayerStateForNewGame();
 
         string sceneToUnload = gameObject.scene.name;
         GameManager.Instance.TransitionToScene(

@@ -72,6 +72,8 @@ public class MainMenu : MonoBehaviour
         
         Debug.Log($"Iniciando juego nuevo... cargando {firstLevelScene.SceneName}...");
         
+        GameManager.Instance.ResetPlayerStateForNewGame();
+        
         if (GlobalZoneSectorDetector.Instance != null)
         {
             GlobalZoneSectorDetector.Instance.ResetAllZones();

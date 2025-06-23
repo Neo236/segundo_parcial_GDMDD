@@ -123,4 +123,15 @@ public class PlayerHealth : MonoBehaviour
     {
         _currentHealth = _maxHealth;
     }
+
+    public void ReviveAndResetHealth()
+    {
+        _currentHealth = _maxHealth;
+        _isDead = false;
+    
+        // Notificamos a la UI que la salud ha cambiado para que se actualice la barra de vida.
+        OnTakeDamage?.Invoke(); 
+    
+        Debug.Log("Player ha sido revivido con salud al máximo.");
+    }
 }

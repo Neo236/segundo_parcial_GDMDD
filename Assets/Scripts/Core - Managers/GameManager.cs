@@ -509,4 +509,25 @@ public class GameManager : MonoBehaviour
             true
         );
     }
+    
+    public void ResetPlayerStateForNewGame()
+    {
+        if (playerObject == null) return;
+
+        Debug.Log("Reiniciando estado del jugador para una nueva partida...");
+
+        // 1. Resetear la salud
+        PlayerHealth playerHealth = playerObject.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.ReviveAndResetHealth(); // Usaremos este nuevo método
+        }
+
+        // 2. Resetear la tinta
+        PlayerInk playerInk = playerObject.GetComponent<PlayerInk>();
+        if (playerInk != null)
+        {
+            playerInk.ResetInk(); // Necesitarás crear este método
+        }
+    }
 }

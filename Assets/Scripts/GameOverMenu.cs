@@ -29,6 +29,13 @@ public class GameOverMenu : MonoBehaviour
         {
             UIManager.Instance.SetSelectedButton(retryButton);
         }
+
+        //if (GameManager.Instance != null)
+        //{
+        //    _playerObject = GameManager.Instance.playerObject;
+        //    _playerHealth = _playerObject.GetComponent<PlayerHealth>();
+        //}
+        
     }
 
     /// <summary>
@@ -45,8 +52,12 @@ public class GameOverMenu : MonoBehaviour
 
         Debug.Log("Reintentando... volviendo a la zona de inicio.");
         
+        GameManager.Instance.ResetPlayerStateForNewGame();
+        
         if (MapRoomManager.Instance != null) MapRoomManager.Instance.ResetAllZones();
         if (GlobalZoneSectorDetector.Instance != null) GlobalZoneSectorDetector.Instance.ResetAllZones();
+        
+        //PlayerHealth.ResetLife();
 
         string sceneToUnload = gameObject.scene.name;
         GameManager.Instance.TransitionToScene(

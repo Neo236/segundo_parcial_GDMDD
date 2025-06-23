@@ -61,6 +61,13 @@ public class PlayerInk : MonoBehaviour
             _reloadInkAmount = 3;
             CurrentInk = MaxInk;
         }
-
+    }
+    
+    public void ResetInk()
+    {
+        CurrentInk = MaxInk;
+        // Opcional: si tienes un sistema de "usos" de recarga, también lo reseteas aquí.
+        // _reloadInkAmount = 4; 
+        Debug.Log("Tinta del jugador reseteada al máximo.");
     }
 }
