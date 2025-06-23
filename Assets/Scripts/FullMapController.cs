@@ -9,6 +9,7 @@ public class FullMapController : MonoBehaviour
     [SerializeField] private float zoomSpeed = 50f; // Aumentado para mejor sensación
     [SerializeField] private float minZoom = 3f;
     [SerializeField] private float maxZoom = 25f;
+    [SerializeField] private float defaultZoomSize = 10f;
     
     private Vector2 moveInput;
     private bool isMapOpen = false;
@@ -64,6 +65,11 @@ public class FullMapController : MonoBehaviour
     {
         // Pausamos el juego para que no nos ataquen mientras vemos el mapa
         Time.timeScale = 0f;
+     
+        if (fullMapCamera != null)
+        {
+            fullMapCamera.orthographicSize = defaultZoomSize;
+        }
         
         // Cambiamos al Action Map de UI para controlar el mapa
         var playerInput = GameManager.Instance.playerObject.GetComponent<PlayerInput>();
@@ -101,6 +107,8 @@ public class FullMapController : MonoBehaviour
         
         // Para la rueda del ratón, el valor está en Y
         float scrollValue = scroll.y;
+        
+        if (Mathf.Abs(scrollValue) < 0.01f) return; // No hacer nada si no se ha movido (0)
         
         // Normalizar el scroll (suele ser 120 o -120)
         scrollValue = Mathf.Sign(scrollValue);

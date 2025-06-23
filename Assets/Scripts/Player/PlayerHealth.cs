@@ -39,12 +39,12 @@ public class PlayerHealth : MonoBehaviour
 
    public void OnEnable()
     {
-        MenuInput.OnDebugButtonPressedDamage += HandleDebugDamage;
+        //MenuInput.OnDebugButtonPressedDamage += HandleDebugDamage;
     }
 
     public void OnDisable()
     {
-        MenuInput.OnDebugButtonPressedDamage -= HandleDebugDamage;
+        //MenuInput.OnDebugButtonPressedDamage -= HandleDebugDamage;
     }
 
     public void TakeDamage(float damage)
@@ -81,6 +81,8 @@ public class PlayerHealth : MonoBehaviour
         _isDead = true;
 
         Debug.Log("El jugador ha muerto.");
+        
+        GameManager.Instance.SetGameState(GameState.PlayerDead);
 
         // En lugar de llamar directamente al GameManager, iniciamos la corrutina de muerte.
         StartCoroutine(DeathSequence());

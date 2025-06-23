@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float fallGravityMultiplier = 2f;
     [SerializeField] private float jumpBufferTime = 0.1f;
     
+    [Header("Variable Jump Settings")]
+    [SerializeField] private float jumpHoldDuration = 0.2f;
+    [SerializeField] private float jumpHoldForce = 20f;
+    
     [Header("Platform Settings")]
     [SerializeField] private float dropThroughDuration = 0.5f;
     [SerializeField] private float platformDetectionRadius = 0.6f;
@@ -23,16 +27,19 @@ public class PlayerMovement : MonoBehaviour
 
     private float _initialGravityScale;
     private float _horizontalMovement;
-    private float _verticalMovement;
     private float _timeSinceLastGroundTouch;
     private float _jumpBufferCounter;
     private float _dropThroughTimer;
+    private float _jumpHoldTimer;
     private bool _canJump;
+    private bool _isHoldingJump = false;
     private Rigidbody2D _rb;
     private GroundCheck _groundCheck;
+    
     // Propiedades públicas para las plataformas
     public bool IsDropping => _dropThroughTimer > 0f;
     public bool IsGrounded => _groundCheck.IsGrounded;
+    public Vector2 LookDirection { get; private set; } = Vector2.right;
 
     private void Awake()
     {
@@ -65,38 +72,36 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _initialGravityScale = _rb.gravityScale;
- 
-        
-        MovementInput.OnHorizontalInput += HandleHorizontalMovement;
-        MovementInput.OnVerticalInput += HandleVerticalMovement;
-        MovementInput.OnJumpPressed += HandleJumpInput;
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        MovementInput.OnHorizontalInput -= HandleHorizontalMovement; 
-        MovementInput.OnVerticalInput -= HandleVerticalMovement;
-        MovementInput.OnJumpPressed -= HandleJumpInput;
+        MovementInput.OnMoveInput += HandleMoveInput;
+        MovementInput.OnJumpPressed += HandleJumpPressed;
+        MovementInput.OnJumpReleased += HandleJumpReleased; // ¡Nos suscribimos al nuevo evento!
+    }
+
+    private void OnDisable()
+    {
+        MovementInput.OnMoveInput -= HandleMoveInput; 
+        MovementInput.OnJumpPressed -= HandleJumpPressed;
+        MovementInput.OnJumpReleased -= HandleJumpReleased;
     }
 
     private void Update()
     {
         if (_jumpBufferCounter > 0)
-        {
             _jumpBufferCounter -= Time.deltaTime;
-        }
         
-        // Actualizar timer de drop through
         if (_dropThroughTimer > 0)
-        {
             _dropThroughTimer -= Time.deltaTime;
-        }
     }
 
     private void FixedUpdate()
     {
         Move();
         HandleJumpLogic();
+        HandleJumpHold(); // Nueva lógica de sostenimiento
         ApplyGravityModifiers();
     }
 
@@ -108,23 +113,27 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetBool("isWalking", Mathf.Abs(_horizontalMovement) > 0.01f);
     }
     }
-
-    private void HandleHorizontalMovement(float movement)
-    {
-        //_animator?.SetBool("isWalking", true);
-        _horizontalMovement = movement;
-        
-    }
     
-    private void HandleVerticalMovement(float movement)
+    private void HandleMoveInput(Vector2 moveInput)
     {
-        _verticalMovement = movement;
+        _horizontalMovement = moveInput.x;
+
+        if (moveInput.sqrMagnitude > 0.1f)
+        {
+            if (Mathf.Abs(moveInput.y) > Mathf.Abs(moveInput.x))
+            {
+                LookDirection = new Vector2(0, Mathf.Sign(moveInput.y));
+            }
+            else
+            {
+                LookDirection = new Vector2(Mathf.Sign(moveInput.x), 0);
+            }
+        }
     }
 
-    private void HandleJumpInput()
+    private void HandleJumpPressed()
     {
-        // Verificar si es drop through MEJORADO
-        if (_groundCheck.IsGrounded && _verticalMovement < -0.5f)
+        if (_groundCheck.IsGrounded && LookDirection.y < -0.5f)
         {
             OneWayPlatform platform = GetCurrentOneWayPlatform();
             if (platform != null && platform.IsPlayerSupported)
@@ -133,15 +142,23 @@ public class PlayerMovement : MonoBehaviour
                 return;
             }
         }
-        
-        // Lógica de salto normal (sin cambios)
+
         if (_canJump)
         {
-            PerformJump();
+            PerformInitialJump();
         }
         else
         {
             _jumpBufferCounter = jumpBufferTime;
+        }
+    }
+
+    // ¡NUEVO HANDLER para cuando se SUELTA el botón!
+    private void HandleJumpReleased()
+    {
+        if (_isHoldingJump)
+        {
+            StopJumpHold();
         }
     }
 
@@ -153,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 _timeSinceLastGroundTouch = 0f;
                 _canJump = true;
+                _isHoldingJump = false; // Si tocamos suelo, dejamos de sostener
             }
         }
         else
@@ -163,18 +181,57 @@ public class PlayerMovement : MonoBehaviour
 
         if (_canJump && _jumpBufferCounter > 0)
         {
-            PerformJump();
+            PerformInitialJump();
             _jumpBufferCounter = 0;
         }
     }
 
-    private void PerformJump()
+    private void PerformInitialJump()
     {
         AudioManager.Instance.PlaySfx(jumpSound);
+        
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, 0f);
         _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        
         _canJump = false;
+        _isHoldingJump = true; // ¡Empezamos a sostener!
+        _jumpHoldTimer = 0f;
         _timeSinceLastGroundTouch = coyoteTime + 1f;
+    }
+
+    // Nueva lógica para aplicar la fuerza mientras se sostiene
+    private void HandleJumpHold()
+    {
+        if (_isHoldingJump)
+        {
+            _jumpHoldTimer += Time.fixedDeltaTime;
+            if (_jumpHoldTimer < jumpHoldDuration)
+            {
+                _rb.AddForce(Vector2.up * jumpHoldForce);
+            }
+            else
+            {
+                // Se acabó el tiempo, dejamos de sostener automáticamente
+                _isHoldingJump = false;
+            }
+        }
+    }
+
+    // Nueva lógica para cuando se suelta el botón
+    private void StopJumpHold()
+    {
+        _isHoldingJump = false;
+        // Cortamos la velocidad vertical para una respuesta más rápida
+        if (_rb.linearVelocity.y > 0)
+        {
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, _rb.linearVelocity.y * 0.5f);
+        }
+    }
+
+    // Resto de métodos sin cambios
+    private void PerformJump()
+    {
+        PerformInitialJump(); // Redirigir al nuevo método
     }
 
     private void ApplyGravityModifiers()
@@ -184,10 +241,8 @@ public class PlayerMovement : MonoBehaviour
             : _initialGravityScale;
     }
     
-    // MEJORADO: Detección más precisa de OneWayPlatform
     private OneWayPlatform GetCurrentOneWayPlatform()
     {
-        // Buscar en colliders cercanos
         Collider2D[] nearbyColliders = Physics2D.OverlapCircleAll(
             transform.position, 
             platformDetectionRadius
@@ -208,17 +263,12 @@ public class PlayerMovement : MonoBehaviour
     private void StartDropThrough()
     {
         _dropThroughTimer = dropThroughDuration;
-        
-        // Impulso hacia abajo más controlado
         _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, -3f);
-        
         Debug.Log("🔽 Drop through iniciado");
     }
     
-    // Debug visual
     private void OnDrawGizmosSelected()
     {
-        // Mostrar radio de detección de plataformas
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, platformDetectionRadius);
     }

@@ -8,15 +8,15 @@ public class MainMenu : MonoBehaviour
     [Header("Scenes & Spawn Points")]
     [SerializeField] private SceneField firstLevelScene;
     [SerializeField] private SpawnPointID firstLevelSpawnPoint;
-    [SerializeField] private ZoneConfiguration startingZoneConfig; // AÑADIR para reset
+    [SerializeField] private ZoneConfiguration startingZoneConfig;
 
     [Header("UI Panels")]
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject settingsMenuPanel;
     
-    [Header("Button Selection")] // ✅ NUEVO: Referencias a botones
-    [SerializeField] private GameObject startButton;    // Botón para seleccionar en main menu
-    [SerializeField] private GameObject backButton;     // Botón para seleccionar en settings
+    [Header("Button Selection")]
+    [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject settingsBackButton;
     
     [Header("AudioClips")]
     [SerializeField] private AudioClip menuMusic;
@@ -47,8 +47,11 @@ public class MainMenu : MonoBehaviour
             AudioManager.Instance.PlayMusic(menuMusic);
         }
         
-        // ✅ NUEVO: Seleccionar el botón Start al iniciar
-        SelectStartButton();
+        // ✅ NUEVO: Usar UIManager centralizado para selección
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.SetSelectedButton(startButton);
+        }
     }
 
     private void OnDestroy()
@@ -56,34 +59,6 @@ public class MainMenu : MonoBehaviour
         if (UIManager.Instance != null && UIManager.Instance.SettingsMenuScript != null)
         {
             UIManager.Instance.SettingsMenuScript.OnBackAction -= CloseSettingsMenu;
-        }
-    }
-
-    // ✅ NUEVO: Método para seleccionar el botón Start
-    private void SelectStartButton()
-    {
-        if (startButton != null)
-        {
-            EventSystem.current.SetSelectedGameObject(startButton);
-            Debug.Log("Botón Start seleccionado");
-        }
-        else
-        {
-            Debug.LogWarning("Start Button no está asignado en MainMenu");
-        }
-    }
-
-    // ✅ NUEVO: Método para seleccionar el botón Back
-    private void SelectBackButton()
-    {
-        if (backButton != null)
-        {
-            EventSystem.current.SetSelectedGameObject(backButton);
-            Debug.Log("Botón Back seleccionado en Settings");
-        }
-        else
-        {
-            Debug.LogWarning("Back Button no está asignado en MainMenu");
         }
     }
 
@@ -97,18 +72,15 @@ public class MainMenu : MonoBehaviour
         
         Debug.Log($"Iniciando juego nuevo... cargando {firstLevelScene.SceneName}...");
         
-        // AGREGAR: Resetear detector global al iniciar nuevo juego
         if (GlobalZoneSectorDetector.Instance != null)
         {
             GlobalZoneSectorDetector.Instance.ResetAllZones();
         }
         
-        // SOLO añadir esta línea para reset de juego nuevo:
         if (MapRoomManager.Instance != null && startingZoneConfig != null)
         {
             MapRoomManager.Instance.ResetAllZones();
         }
-        
         string sceneToUnload = gameObject.scene.name;
         GameManager.Instance.TransitionToScene(firstLevelScene, 
             firstLevelSpawnPoint, sceneToUnload, firstLevelMusic, stopMusicOnLoad);
@@ -119,8 +91,46 @@ public class MainMenu : MonoBehaviour
         if (settingsMenuPanel != null) settingsMenuPanel.SetActive(true);
         mainMenuPanel.SetActive(false);
         
-        // ✅ NUEVO: Seleccionar botón Back cuando se abre Settings
-        SelectBackButton();
+        // ✅ DEBUG: Verificar antes de activar paneles
+        Debug.Log($"DEBUG ANTES - settingsBackButton: {(settingsBackButton != null ? settingsBackButton.name : "NULL")}");
+    
+        if (settingsMenuPanel != null) settingsMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
+    
+        // ✅ DEBUG: Verificar después de activar paneles
+        Debug.Log($"DEBUG DESPUÉS - settingsBackButton: {(settingsBackButton != null ? settingsBackButton.name : "NULL")}");
+    
+        // ✅ CORREGIDO: Usar UIManager directamente
+        if (UIManager.Instance != null && settingsBackButton != null)
+        {
+            UIManager.Instance.SetSelectedButton(settingsBackButton);
+        }
+        else
+        {
+            Debug.LogWarning($"MainMenu: No se puede seleccionar botón. UIManager: {(UIManager.Instance != null ? "OK" : "NULL")}, settingsBackButton: {(settingsBackButton != null ? "OK" : "NULL")}");
+        }
+        
+        // ✅ DEBUG COMPLETO
+        if (settingsBackButton != null)
+        {
+            Debug.Log($"DEBUG - settingsBackButton: {settingsBackButton.name}");
+            Debug.Log($"DEBUG - settingsBackButton.activeInHierarchy: {settingsBackButton.activeInHierarchy}");
+            Debug.Log($"DEBUG - settingsBackButton.activeSelf: {settingsBackButton.activeSelf}");
+        }
+        else
+        {
+            Debug.LogError("DEBUG - settingsBackButton es NULL!");
+        }
+        
+        // ✅ CORREGIDO: Usar UIManager directamente
+        if (UIManager.Instance != null && settingsBackButton != null)
+        {
+            UIManager.Instance.SetSelectedButton(settingsBackButton);
+        }
+        else
+        {
+            Debug.LogWarning($"MainMenu: No se puede seleccionar botón. UIManager: {(UIManager.Instance != null ? "OK" : "NULL")}, settingsBackButton: {(settingsBackButton != null ? "OK" : "NULL")}");
+        }
     }
 
     public void CloseSettingsMenu()
@@ -128,8 +138,15 @@ public class MainMenu : MonoBehaviour
         if (settingsMenuPanel != null) settingsMenuPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
         
-        // ✅ NUEVO: Volver a seleccionar botón Start cuando se cierra Settings
-        SelectStartButton();
+        // ✅ CORREGIDO: Usar UIManager directamente
+        if (UIManager.Instance != null && startButton != null)
+        {
+            UIManager.Instance.SetSelectedButton(startButton);
+        }
+        else
+        {
+            Debug.LogWarning($"MainMenu: No se puede seleccionar botón. UIManager: {(UIManager.Instance != null ? "OK" : "NULL")}, startButton: {(startButton != null ? "OK" : "NULL")}");
+        }
     }
 
     public void QuitGame()
