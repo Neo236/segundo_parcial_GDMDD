@@ -32,10 +32,11 @@ public class EnemyDistance : EnemyClass
 
  
 
-    if (DetectarJugador() && Time.time >= lastAttackTime + attackCooldown)
+    if ( !IsDead&& DetectarJugador() && Time.time >= lastAttackTime + attackCooldown )
     {
             VoltearAlJugador();
-      AttackPlayer();
+            animator.SetBool("Attack",true);
+     
       lastAttackTime = Time.time;
     }
   }
@@ -53,6 +54,7 @@ public class EnemyDistance : EnemyClass
         enemyAttack.SetTarget(player.transform);
       }
     }
-  }
+        animator.SetBool("Attack",false);
+    }
 
 }

@@ -375,6 +375,18 @@ PrefabInstance:
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5760760719014825969, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: _weakness
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760760719014825969, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: distanceToPlayer
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760760719014825969, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: detectionMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760760719014825969, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
       propertyPath: 'ataqueLocacion.Array.data[0]'
       value: 
       objectReference: {fileID: 1672809462}

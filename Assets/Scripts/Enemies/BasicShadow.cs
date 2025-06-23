@@ -30,20 +30,24 @@ public class BasicShadow : EnemyClass
     }
     private void Update()
     {
-        if (DetectarJugador())
+        if (!(animator.GetBool("Death")))
         {
-            if (Time.time >= lastAttackTime + attackCooldown && !(DistanciaObjetivo() <= attackDistance))
+            if (DetectarJugador())
             {
-                VoltearAlJugador();
-                Moverse();
+                if (Time.time >= lastAttackTime + attackCooldown && !(DistanciaObjetivo() <= attackDistance))
+                {
+                    VoltearAlJugador();
+                    Moverse();
 
 
-            }
-            if (DistanciaObjetivo() <= attackDistance && Time.time >= lastAttackTime + attackCooldown)
-            {
-                VoltearAlJugador();
-                EmpezarAtaque();
-                lastAttackTime = Time.time;
+                }
+                if (DistanciaObjetivo() <= attackDistance && Time.time >= lastAttackTime + attackCooldown)
+                {
+                    animator.SetBool("Moviendose", false);
+                    VoltearAlJugador();
+                    EmpezarAtaque();
+                    lastAttackTime = Time.time;
+                }
             }
         }
     }
@@ -52,14 +56,17 @@ public class BasicShadow : EnemyClass
         jugDireccion.y = 0;
         if (_groundCheck.indivGrounded[2] && volteadoReal || _groundCheck.indivGrounded[0] && !volteadoReal)
         {
-            rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * jugDireccion);
             animator.SetBool("Moviendose", true);
+            rb.MovePosition(rb.position + Time.fixedDeltaTime * velocidad * jugDireccion);
+           
             Debug.Log("MOVIENDOSE");
 
         }
-        else { 
-        animator.SetBool("Moviendose", false);
-    }
+        else
+        {
+            animator.SetBool("Moviendose",false);
+        }
+        
        
     }
     private float DistanciaObjetivo()

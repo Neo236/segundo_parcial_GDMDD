@@ -24,7 +24,7 @@ AnimationClip:
       value: {fileID: 6970142281333990241, guid: 105c6c8e8d2975e4aac1a7fb59e97fd9, type: 3}
     - time: 0.16666667
       value: {fileID: -8313801638895425705, guid: 105c6c8e8d2975e4aac1a7fb59e97fd9, type: 3}
-    - time: 0.31666666
+    - time: 0.36666667
       value: {fileID: 2954775061114223028, guid: 105c6c8e8d2975e4aac1a7fb59e97fd9, type: 3}
     - time: 0.48333332
       value: {fileID: 6970142281333990241, guid: 105c6c8e8d2975e4aac1a7fb59e97fd9, type: 3}
@@ -78,4 +78,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.38333333
+    functionName: AttackPlayer
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
