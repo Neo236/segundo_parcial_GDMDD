@@ -13,10 +13,12 @@ public class MainMenu : MonoBehaviour
     [Header("UI Panels")]
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject settingsMenuPanel;
+    [SerializeField] private GameObject CreditsMenuPanel;
     
     [Header("Button Selection")]
     [SerializeField] private GameObject startButton;
     [SerializeField] private GameObject settingsBackButton;
+    [SerializeField] private GameObject creditsBackButton;
     
     [Header("AudioClips")]
     [SerializeField] private AudioClip menuMusic;
@@ -28,6 +30,7 @@ public class MainMenu : MonoBehaviour
     {
         mainMenuPanel.SetActive(true);
         if (settingsMenuPanel != null) settingsMenuPanel.SetActive(false);
+        if (CreditsMenuPanel != null) CreditsMenuPanel.SetActive(false);
 
         if (UIManager.Instance != null && UIManager.Instance.SettingsMenuScript != null)
         {
@@ -155,5 +158,27 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Saliendo del juego...");
         Application.Quit();
+    }
+    
+    public void OpenCreditsMenu()
+    {
+        if (CreditsMenuPanel != null) CreditsMenuPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
+        
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.SetSelectedButton(creditsBackButton);
+        }
+    }
+    
+    public void CloseCreditsMenu()
+    {
+        if (CreditsMenuPanel != null) CreditsMenuPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.SetSelectedButton(startButton);
+        }
     }
 }
