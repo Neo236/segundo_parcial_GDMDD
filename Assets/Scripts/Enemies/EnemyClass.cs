@@ -149,7 +149,7 @@ public class EnemyClass : MonoBehaviour
 
     }
 
-    public void Die()
+    public virtual void Die()
     {
         // Lógica para manejar la muerte del enemigo
         // Por ejemplo, podrías reproducir una animación de muerte, soltar objetos, etc.

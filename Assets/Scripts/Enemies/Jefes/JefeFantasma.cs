@@ -24,6 +24,11 @@ public class JefeFantasma :EnemyDistance
         danoCont++;
         Debug.Log("Teleportado");
     }
+    public override void Die()
+    {
+        base.Die();
+        GameManager.Instance.TriggerEndScene();
+    }
 
 
 
