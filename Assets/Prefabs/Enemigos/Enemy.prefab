@@ -221,7 +221,7 @@ MonoBehaviour:
   distanceToPlayer: 500
   detectionMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 264
   sprite: {fileID: 2450760795795553525, guid: b1201cc90f1b244419658d4338ad2951, type: 3}
   velocidad: 2
   attackDistance: 4

@@ -509,6 +509,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2941483006633248896, guid: 36ad0cc01221a0f4fafb747eea0ad8bd, type: 3}
+      propertyPath: detectionMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 3149998462649935647, guid: 36ad0cc01221a0f4fafb747eea0ad8bd, type: 3}
       propertyPath: m_Name
       value: Enemy

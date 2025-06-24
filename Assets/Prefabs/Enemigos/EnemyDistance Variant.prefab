@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: distanceToPlayer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2944518142562138749, guid: 546ff832c923dde4a92e6d08ddf29330, type: 3}
+      propertyPath: detectionMask.m_Bits
+      value: 264
+      objectReference: {fileID: 0}
     - target: {fileID: 3149998462649935647, guid: 546ff832c923dde4a92e6d08ddf29330, type: 3}
       propertyPath: m_Name
       value: EnemyDistance Variant

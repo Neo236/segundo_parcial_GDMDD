@@ -221,7 +221,7 @@ MonoBehaviour:
   distanceToPlayer: 0
   detectionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   sprite: {fileID: 2913372954265627928, guid: 32cdee28f9f030444863dbc08860e0ae, type: 3}
   attackPoint: {fileID: 0}
   attackPointPos: {x: 0, y: 0, z: 0}
