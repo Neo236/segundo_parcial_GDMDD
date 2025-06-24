@@ -161,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5760760719014825969, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
       propertyPath: health
-      value: 1000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5760760719014825969, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
       propertyPath: _weakness
