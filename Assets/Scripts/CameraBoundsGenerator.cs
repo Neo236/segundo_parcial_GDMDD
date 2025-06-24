@@ -29,7 +29,7 @@ public class CameraBoundsGenerator : MonoBehaviour
         }
         
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         Debug.Log("✅ CameraBoundsGenerator Singleton inicializado");
     }
     
