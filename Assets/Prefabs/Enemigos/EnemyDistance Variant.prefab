@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 2420240510192197575, guid: 4fe9dd07662c1094ba2f492a963df19e, type: 3}
     - target: {fileID: 2944518142562138749, guid: 546ff832c923dde4a92e6d08ddf29330, type: 3}
       propertyPath: distanceToPlayer
-      value: 15
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2944518142562138749, guid: 546ff832c923dde4a92e6d08ddf29330, type: 3}
       propertyPath: detectionMask.m_Bits
