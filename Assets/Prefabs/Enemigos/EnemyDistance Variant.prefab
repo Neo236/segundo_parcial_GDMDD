@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2429630563230529416, guid: 546ff832c923dde4a92e6d08ddf29330, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 832
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 2429630563230529416, guid: 546ff832c923dde4a92e6d08ddf29330, type: 3}
       propertyPath: m_IncludeLayers.m_Bits

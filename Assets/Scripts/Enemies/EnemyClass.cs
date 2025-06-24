@@ -29,7 +29,7 @@ public class EnemyClass : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         hitbox = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        ChangeColorBasedOnElementType();
+       
 
     }
    
@@ -39,7 +39,7 @@ public class EnemyClass : MonoBehaviour
         _groundCheck = GetComponent<GroundCheck>();
         hitbox = GetComponent<BoxCollider2D>();
         _groundCheck.AdaptRaycastToHitbox(hitbox);
-      
+        ChangeColorBasedOnElementType();
 
     }
 
@@ -179,7 +179,7 @@ public class EnemyClass : MonoBehaviour
                     sprite.color = Color.red;
                     break;
                 case ElementType.Water:
-                    sprite.color =new Color(22, 42, 241, 255);
+                    sprite.color =Color.blue;
                     break;
                 case ElementType.Electric:
                     sprite.color = Color.yellow;
