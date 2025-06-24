@@ -627,7 +627,7 @@ PrefabInstance:
     - target: {fileID: 7287536902431445218, guid: 8034de7697f2acc449468f5c39296e51, type: 3}
       propertyPath: spawnPointID
       value: 
-      objectReference: {fileID: 11400000, guid: 5d767d90a96ce8d4294a9c3d7029b506, type: 2}
+      objectReference: {fileID: 11400000, guid: 0d1217378da9a9647b6b1c66c8d06208, type: 2}
     - target: {fileID: 8209313361120353640, guid: 8034de7697f2acc449468f5c39296e51, type: 3}
       propertyPath: m_Name
       value: SpawnPointPrefab
