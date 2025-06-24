@@ -1,57 +1,37 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [FormerlySerializedAs("attackSpwawner")]
     [Header("Attack Settings")]
     [SerializeField] private Transform attackSpawnerRight;
     [SerializeField] private Transform attackSpawnerLeft;
     [SerializeField] private Transform attackSpawnerUp;
     [SerializeField] private Transform attackSpawnerDown;
 
-
     [SerializeField] private GameObject attackProjectile;
     [SerializeField] private float attackCooldown = 0.2f;
-    [SerializeField] private AudioClip noInkSound; // Optional sound for when there's not enough ink
+    [SerializeField] private AudioClip noInkSound;
 
     private float _currentCooldownTimer = 0.2f;
     private PlayerInk _playerInk;
     private AttackSelector _attackSelector;
     private InkSelector _inkSelector;
-
-    //private PlayerInput _playerInput;
-    //private InputAction _moveAction;
-    //private InputAction _attackAction;
     
+    // La única referencia externa que necesitamos
     private PlayerMovement _playerMovement; 
-    
-    private PlayerInput _playerInput;
-    private InputAction _moveAction;
-    private InputAction _attackAction;
 
-
-    private Vector2 _lookDirection = Vector2.right;
-
-    [Header("Animations")]
+    // ¡NUEVO! Referencia al Animator
     private Animator _animator;
-    private GameObject _playerSprite;
+
     private void Awake()
     {
         InitializeComponents();
-        //_playerInput = GetComponent<PlayerInput>();
-        //var actionMap = _playerInput.actions.FindActionMap("OnGame");
-        //_moveAction = actionMap.FindAction("Move");
-        //_attackAction = actionMap.FindAction("Attack");
-
-        //_attackAction.performed += ctx => HandleAttack();
     }
 
-     private void OnEnable()
-     {
-         AttackInput.OnAttackButtonPressed += HandleAttack;
-     }
+    private void OnEnable()
+    {
+        AttackInput.OnAttackButtonPressed += HandleAttack;
+    }
 
     private void OnDisable()
     {
@@ -64,36 +44,25 @@ public class PlayerAttack : MonoBehaviour
         _attackSelector = GetComponent<AttackSelector>();
         _inkSelector = GetComponent<InkSelector>();
         _playerMovement = GetComponent<PlayerMovement>();
-
-        if (_playerInk == null || _attackSelector == null || _inkSelector == null || _playerMovement == null)
+        
+        // Obtenemos el Animator desde el PlayerSprite hijo
+        var playerSprite = transform.Find("PlayerSprite");
+        if (playerSprite != null)
         {
-            Debug.LogError($"Missing required components on {gameObject.name}");
+            _animator = playerSprite.GetComponent<Animator>();
+        }
+
+        if (_playerMovement == null || _playerInk == null || _attackSelector == null || _inkSelector == null)
+        {
+            Debug.LogError($"Faltan componentes requeridos en {gameObject.name}");
             enabled = false;
         }
     }
 
+    // ¡EL MÉTODO UPDATE AHORA ES MUY SIMPLE!
     private void Update()
     {
         _currentCooldownTimer += Time.deltaTime;
-
-         // Lee el valor de Move para actualizar la dirección de mirada
-        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
-        _playerSprite = transform.Find("PlayerSprite")?.gameObject;
-        _animator = _playerSprite?.GetComponent<Animator>();
-        if (_animator == null)
-        {
-            Debug.LogWarning($"No Animator found on {gameObject.name}. Animations will not play.");
-        }
-
-        // Prioridad: vertical sobre horizontal
-        if (moveInput.y > 0.5f)
-            _lookDirection = Vector2.up;
-        else if (moveInput.y < -0.5f)
-            _lookDirection = Vector2.down;
-        else if (moveInput.x > 0.5f)
-            _lookDirection = Vector2.right;
-        else if (moveInput.x < -0.5f)
-            _lookDirection = Vector2.left;
     }
 
     private void HandleAttack()
@@ -102,31 +71,25 @@ public class PlayerAttack : MonoBehaviour
 
         if (_playerInk.CurrentInk < _attackSelector.selectedAttack.inkCost)
         {
-            Debug.Log("Not enough ink to attack");
+            Debug.Log("No hay suficiente tinta para atacar.");
             if (noInkSound != null)
             {
                 AudioManager.Instance.PlaySfx(noInkSound);
             }
             return;
         }
-        if (_animator != null)
-        {
-            _animator.SetTrigger("Attack");
-        }
+        
         PerformAttack();
     }
 
-    private void TriggerAttack()
-    { 
-        PerformAttack();
-    }
     private void PerformAttack()
     {
-
         _currentCooldownTimer = 0;
         _playerInk.CurrentInk -= _attackSelector.selectedAttack.inkCost;
-
         _attackSelector.selectedAttack.elementType = _inkSelector.currentInk;
+
+        // Disparamos la animación de ataque
+        _animator?.SetTrigger("Attack");
 
         if (_attackSelector.selectedAttack.soundEffect != null)
         {
@@ -136,25 +99,19 @@ public class PlayerAttack : MonoBehaviour
         Transform spawner;
         Vector3 direction;
 
+        // ¡OBTENEMOS LA DIRECCIÓN DEL PLAYER MOVEMENT!
         Vector2 lookDirection = _playerMovement.LookDirection;
 
-        if (lookDirection == Vector2.right)
-        {
+        if (lookDirection == Vector2.right) {
             spawner = attackSpawnerRight;
             direction = Vector3.right;
-        }
-        else if (lookDirection == Vector2.left)
-        {
+        } else if (lookDirection == Vector2.left) {
             spawner = attackSpawnerLeft;
             direction = Vector3.left;
-        }
-        else if (lookDirection == Vector2.up)
-        {
+        } else if (lookDirection == Vector2.up) {
             spawner = attackSpawnerUp;
             direction = Vector3.up;
-        }
-        else // down
-        {
+        } else { // down
             spawner = attackSpawnerDown;
             direction = Vector3.down;
         }
@@ -164,10 +121,11 @@ public class PlayerAttack : MonoBehaviour
 
         LogAttackDetails();
     }
+
     private void LogAttackDetails()
     {
         Debug.Log($"Selected Attack: {_attackSelector.selectedAttack.name} " +
-                 $"with ink cost: {_attackSelector.selectedAttack.inkCost} " +
-                 $"and element type: {_attackSelector.selectedAttack.elementType}");
+                  $"with ink cost: {_attackSelector.selectedAttack.inkCost} " +
+                  $"and element type: {_attackSelector.selectedAttack.elementType}");
     }
 }
