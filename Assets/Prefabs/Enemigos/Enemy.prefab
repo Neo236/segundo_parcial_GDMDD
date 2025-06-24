@@ -225,7 +225,7 @@ MonoBehaviour:
   sprite: {fileID: 2450760795795553525, guid: b1201cc90f1b244419658d4338ad2951, type: 3}
   velocidad: 2
   attackDistance: 4
-  attackCooldown: 1
+  attackCooldown: 1.8
   attack: {fileID: 2420240510192197575, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
   attackScript: {fileID: 3820057326609959999, guid: e962fdc6ae7a6f440872d5602a8a15c1, type: 3}
   attackPoint: {fileID: 0}
