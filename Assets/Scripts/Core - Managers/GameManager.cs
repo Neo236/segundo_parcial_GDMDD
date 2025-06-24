@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public GameState CurrentGameState { get; private set; }
 
     [SerializeField] private EnemyDistance[] enemies;
-    [SerializeField] private string endSceneName = "End"; // Nombre de la escena final
+  
 
     private bool gameEnded = false;
 
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         {
             gameEnded = true;
             Debug.Log("All enemies defeated. Loading end scene...");
-            SceneManager.LoadScene(endSceneName);
+         
         }
     }
 

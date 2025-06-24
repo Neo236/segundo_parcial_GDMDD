@@ -1204,7 +1204,6 @@ MonoBehaviour:
   defaultVirtualCameraPrefab: {fileID: 433763765586588738, guid: f710fa3731aacb34cba7c8d7eaaf1c5a, type: 3}
   nextSpawnPointID: {fileID: 11400000, guid: 3a0de5e9b4b77f64aaf19b5dda256a65, type: 2}
   enemies: []
-  endSceneName: End
 --- !u!4 &1640824628
 Transform:
   m_ObjectHideFlags: 0

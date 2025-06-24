@@ -1,5 +1,6 @@
 using System;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -25,10 +26,10 @@ public class EnemyClass : MonoBehaviour
 
         sprite = GetComponent<SpriteRenderer>();
         detectionMask = LayerMask.GetMask("Ground", "Player");
-
         player = GameObject.FindWithTag("Player");
         hitbox = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        ChangeColorBasedOnElementType();
 
     }
    
@@ -109,7 +110,7 @@ public class EnemyClass : MonoBehaviour
     {
         if (player == null)
         {
-            player = GameObject.FindWithTag("Player");
+            player = GameManager.Instance.playerObject;
         }
         jugDireccion = (player.transform.position - transform.position).normalized;
 
@@ -167,5 +168,26 @@ public class EnemyClass : MonoBehaviour
         Debug.Log("atacando");
 
        
+    }
+    private void ChangeColorBasedOnElementType()
+    {
+        if (sprite != null)
+        {
+            switch (_weakness)
+            {
+                case ElementType.Fire:
+                    sprite.color = Color.red;
+                    break;
+                case ElementType.Water:
+                    sprite.color =new Color(22, 42, 241, 255);
+                    break;
+                case ElementType.Electric:
+                    sprite.color = Color.yellow;
+                    break;
+                default:
+                    sprite.color = Color.white;
+                    break;
+            }
+        }
     }
 }

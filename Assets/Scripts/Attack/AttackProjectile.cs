@@ -52,7 +52,7 @@ public class AttackProjectile : MonoBehaviour
 
         ChangeColorBasedOnElementType();
         // Set the projectile's layer to avoid friendly fire
-        gameObject.layer = LayerMask.NameToLayer("Damageable");
+      
         
         Destroy(gameObject, lifetime);
     }

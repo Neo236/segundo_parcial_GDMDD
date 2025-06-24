@@ -979,6 +979,63 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 1
+--- !u!1001 &1553436360
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6662731247652665069, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7757455698572326569, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
+      propertyPath: m_Name
+      value: Fantasma Jefe
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b388d2225a4a6e640a60fcca3b837751, type: 3}
 --- !u!1 &1607559505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,3 +1844,4 @@ SceneRoots:
   - {fileID: 1895121425}
   - {fileID: 613281758}
   - {fileID: 216767547}
+  - {fileID: 1553436360}

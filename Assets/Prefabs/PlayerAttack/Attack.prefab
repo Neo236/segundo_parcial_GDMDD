@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -867681070494647682}
   - component: {fileID: 8445601611183695952}
   - component: {fileID: 4710190157015357819}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6190948343247557740}
   - component: {fileID: 3867923734452287266}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: SpriteHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

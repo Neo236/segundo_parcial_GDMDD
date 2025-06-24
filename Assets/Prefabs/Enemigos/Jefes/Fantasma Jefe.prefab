@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ElementDefense: 
   _weakness: 0
-  health: 100
+  health: 1000
   player: {fileID: 0}
   volteadoReal: 0
   distanceToPlayer: 0
