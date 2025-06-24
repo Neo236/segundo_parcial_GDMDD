@@ -3454,7 +3454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7562615823238723820, guid: df023f4434a240147a7ce2a7dfe32ed8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.38
+      value: 14.94
       objectReference: {fileID: 0}
     - target: {fileID: 7562615823238723820, guid: df023f4434a240147a7ce2a7dfe32ed8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3490,11 +3490,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8128407063724228593, guid: df023f4434a240147a7ce2a7dfe32ed8, type: 3}
       propertyPath: distanceToPlayer
-      value: 10
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8128407063724228593, guid: df023f4434a240147a7ce2a7dfe32ed8, type: 3}
+      propertyPath: detectionMask.m_Bits
+      value: 264
       objectReference: {fileID: 0}
     - target: {fileID: 8333887365526561427, guid: df023f4434a240147a7ce2a7dfe32ed8, type: 3}
       propertyPath: m_Name
       value: EnemyDistance Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8796156224326203769, guid: df023f4434a240147a7ce2a7dfe32ed8, type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
